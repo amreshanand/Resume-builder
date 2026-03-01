@@ -81,7 +81,7 @@ export default function TemplatesPage() {
                     <h1 className="text-3xl sm:text-4xl md:text-6xl font-black mb-8 tracking-tight leading-[1.15] text-white uppercase italic">
                         Select <span className="gradient-text pb-2">Interface.</span>
                     </h1>
-                    <p className="monospace text-xs md:text-sm text-slate-500 max-w-2xl mx-auto tracking-widest uppercase opacity-70">
+                    <p className="monospace text-xs md:text-sm text-slate-500 max-w-2xl mx-auto tracking-widest uppercase opacity-70 text-center px-4">
                         [ SYSTEM_MSG: Deploy high-fidelity ATS-vetted career frameworks ]
                     </p>
                 </div>
@@ -99,7 +99,7 @@ export default function TemplatesPage() {
                                     handleSelect(template);
                                 }
                             }}
-                            className="group relative bg-[#0f172a]/60 hover:bg-[#1e293b]/60 border border-white/5 hover:border-indigo-500/30 rounded-[2.5rem] p-10 pb-12 md:p-14 md:pb-16 text-left transition-all duration-500 cursor-pointer fade-in flex flex-col h-full shadow-2xl tech-card active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                            className="group relative bg-[#0f172a]/80 hover:bg-[#1e293b]/90 border border-white/5 hover:border-indigo-500/40 rounded-[2.5rem] p-10 pb-12 md:p-14 md:pb-16 text-left transition-all duration-500 cursor-pointer fade-in flex flex-col h-full min-h-[420px] shadow-2xl tech-card active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
                             style={{ animationDelay: `${i * 100}ms` }}
                         >
                             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-10 mb-10">
@@ -122,12 +122,12 @@ export default function TemplatesPage() {
                                 {template.description}
                             </p>
 
-                            <div className="flex items-center justify-between mt-auto pt-8 border-t border-white/5 relative z-10">
-                                <span className="monospace text-[10px] font-bold tracking-[0.3em] text-indigo-400 uppercase group-hover:text-indigo-300 transition-all flex items-center gap-4">
+                            <div className="flex items-center justify-between mt-auto pt-8 border-t border-white/5 relative z-10 w-full shrink-0">
+                                <span className="monospace text-xs font-bold tracking-[0.2em] text-indigo-400 uppercase group-hover:text-indigo-300 transition-all flex items-center gap-4">
                                     Initialize Build
-                                    <div className="w-8 h-[1px] bg-indigo-500/30 group-hover:w-16 transition-all" />
+                                    <div className="w-8 h-[1px] bg-indigo-500/30 group-hover:w-16 transition-all shrink-0" />
                                 </span>
-                                <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-400 transition-all duration-500 shadow-xl">
+                                <div className="w-12 h-12 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-xl group-hover:bg-indigo-500 group-hover:text-white group-hover:border-indigo-400 transition-all duration-500 shadow-xl">
                                     →
                                 </div>
                             </div>
