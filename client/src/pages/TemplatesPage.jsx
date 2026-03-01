@@ -88,10 +88,18 @@ export default function TemplatesPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
                     {TEMPLATES.map((template, i) => (
-                        <button
+                        <div
                             key={template.id}
+                            role="button"
+                            tabIndex={0}
                             onClick={() => handleSelect(template)}
-                            className="group relative bg-[#0f172a]/60 hover:bg-[#1e293b]/60 border border-white/5 hover:border-indigo-500/30 rounded-[2.5rem] p-10 pb-12 md:p-14 md:pb-16 text-left transition-all duration-500 cursor-pointer fade-in flex flex-col h-full shadow-2xl tech-card active:scale-[0.98]"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handleSelect(template);
+                                }
+                            }}
+                            className="group relative bg-[#0f172a]/60 hover:bg-[#1e293b]/60 border border-white/5 hover:border-indigo-500/30 rounded-[2.5rem] p-10 pb-12 md:p-14 md:pb-16 text-left transition-all duration-500 cursor-pointer fade-in flex flex-col h-full shadow-2xl tech-card active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
                             style={{ animationDelay: `${i * 100}ms` }}
                         >
                             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-10 mb-10">
@@ -128,7 +136,7 @@ export default function TemplatesPage() {
                             <div className="absolute top-4 right-8 monospace text-[8px] text-white/10 font-bold group-hover:text-indigo-500/20 transition-colors">
                                 0{i + 1} // ARCH_TYPE_{template.id.toUpperCase()}
                             </div>
-                        </button>
+                        </div>
                     ))}
                 </div>
 
