@@ -28,12 +28,14 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--surface);
+  background-color: #020617;
   color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
 }
 
 .container-custom {
