@@ -57,7 +57,7 @@ export default function HomePage() {
                             {/* 3D Floating Mockup */}
                             <div className="flex-1 perspective-1000 hidden lg:block">
                                 <div className="floating-3d relative w-full aspect-[4/5] max-w-[450px] mx-auto">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-[3rem] blur-3xl opacity-40 animate-pulse" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-[3rem] blur-3xl opacity-50" style={{ transform: 'translateZ(-10px)' }} />
                                     <div className="relative h-full w-full bg-[#0f172a]/90 border border-white/10 rounded-[2.5rem] p-10 backdrop-blur-xl shadow-2xl overflow-hidden tech-card">
                                         <div className="flex flex-col gap-6 h-full">
                                             <div className="flex items-center gap-4 border-b border-white/10 pb-8">

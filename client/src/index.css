@@ -122,6 +122,7 @@ body {
   transform: rotateX(60deg) translateZ(0);
   animation: gridMove 20s linear infinite;
   pointer-events: none;
+  will-change: transform;
 }
 
 @keyframes gridMove {
@@ -137,6 +138,7 @@ body {
 .floating-3d {
   transform-style: preserve-3d;
   animation: float3d 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes float3d {
@@ -185,19 +187,11 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #818cf8, #22d3ee, #c084fc, #818cf8);
-  background-size: 300% auto;
+  background: linear-gradient(to right, #818cf8, #22d3ee, #c084fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientFlow 10s linear infinite;
-  will-change: background-position;
-}
-
-@keyframes gradientFlow {
-  to {
-    background-position: 200% center;
-  }
+  /* Removed heavy background-position animation for smooth performance */
 }
 
 /* Shimmer animation */
