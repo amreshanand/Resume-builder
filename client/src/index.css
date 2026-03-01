@@ -122,9 +122,8 @@ body {
     linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
   transform: rotateX(60deg) translateZ(0);
-  animation: gridMove 20s linear infinite;
   pointer-events: none;
-  will-change: transform;
+  /* animation disabled for performance */
 }
 
 @keyframes gridMove {
@@ -133,12 +132,12 @@ body {
   }
 
   to {
-    transform: rotateX(60deg) translateY(50px);
+    transform: rotateX(60deg) translateY(0);
+    /* disabled movement for performance */
   }
 }
 
 .floating-3d {
-  transform-style: preserve-3d;
   animation: float3d 6s ease-in-out infinite;
   will-change: transform;
 }
@@ -147,11 +146,11 @@ body {
 
   0%,
   100% {
-    transform: rotateY(-10deg) rotateX(10deg) translateY(0);
+    transform: translateY(0);
   }
 
   50% {
-    transform: rotateY(10deg) rotateX(-5deg) translateY(-20px);
+    transform: translateY(-15px);
   }
 }
 

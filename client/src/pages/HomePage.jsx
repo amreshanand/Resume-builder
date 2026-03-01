@@ -58,7 +58,7 @@ export default function HomePage() {
                             <div className="flex-1 perspective-1000 hidden lg:block">
                                 <div className="floating-3d relative w-full aspect-[4/5] max-w-[450px] mx-auto">
                                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-[3rem] blur-3xl opacity-50" style={{ transform: 'translateZ(-10px)' }} />
-                                    <div className="relative h-full w-full bg-[#0f172a]/90 border border-white/10 rounded-[2.5rem] p-10 backdrop-blur-xl shadow-2xl overflow-hidden tech-card">
+                                    <div className="relative h-full w-full bg-[#0f172a] border border-white/10 rounded-[2.5rem] p-10 shadow-2xl overflow-hidden tech-card">
                                         <div className="flex flex-col gap-6 h-full">
                                             <div className="flex items-center gap-4 border-b border-white/10 pb-8">
                                                 <div className="w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-3xl shadow-lg">👤</div>
@@ -93,10 +93,10 @@ export default function HomePage() {
                                     </div>
 
                                     {/* HUD Elements */}
-                                    <div className="absolute -top-12 -right-12 bg-indigo-500 text-white px-5 py-2 rounded-xl monospace text-[10px] font-bold shadow-2xl shadow-indigo-500/50 animate-bounce">
+                                    <div className="absolute -top-12 -right-12 bg-indigo-500 text-white px-5 py-2 rounded-xl monospace text-[10px] font-bold shadow-2xl shadow-indigo-500/50">
                                         ⚡ OPTIMIZING
                                     </div>
-                                    <div className="absolute -bottom-8 -left-16 bg-[#0f172a]/90 border border-white/10 text-slate-300 px-8 py-5 rounded-2xl monospace text-[10px] backdrop-blur-2xl shadow-2xl border-indigo-500/30 group z-20">
+                                    <div className="absolute -bottom-8 -left-16 bg-[#0f172a] border border-white/10 text-slate-300 px-8 py-5 rounded-2xl monospace text-[10px] shadow-2xl border-indigo-500/30 group z-20">
                                         <div className="flex items-center gap-4">
                                             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                                             <span className="opacity-70 whitespace-nowrap tracking-widest">ATS SCORE:</span> <span className="text-emerald-400 font-bold whitespace-nowrap text-xs">98.4%</span>
