@@ -138,6 +138,7 @@ body {
 }
 
 .floating-3d {
+  transform-style: preserve-3d;
   animation: float3d 6s ease-in-out infinite;
   will-change: transform;
 }
@@ -146,11 +147,11 @@ body {
 
   0%,
   100% {
-    transform: translateY(0);
+    transform: rotateY(-10deg) rotateX(10deg) translateY(0);
   }
 
   50% {
-    transform: translateY(-15px);
+    transform: rotateY(10deg) rotateX(-5deg) translateY(-20px);
   }
 }
 
