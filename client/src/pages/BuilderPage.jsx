@@ -114,9 +114,20 @@ export default function BuilderPage() {
                         {state.formSchema ? (
                             <DynamicForm schema={state.formSchema} />
                         ) : (
-                            <div className="text-center py-20">
-                                <p className="text-[var(--text-muted)] mb-4">Failed to load form schema</p>
-                                <button onClick={generateForm} className="btn-primary">Retry</button>
+                            <div className="h-full flex items-center justify-center p-8">
+                                <div className="max-w-md w-full glass border border-red-500/20 rounded-2xl p-10 text-center relative overflow-hidden">
+                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500/10 via-red-500/40 to-red-500/10" />
+                                    <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-6">
+                                        <span className="text-2xl">⚠️</span>
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-3">Schema Initialization Failed</h3>
+                                    <p className="text-[var(--text-muted)] mb-8 text-sm leading-relaxed">
+                                        Unable to establish connection with AI services. Please verify your connection or retry the operation.
+                                    </p>
+                                    <button onClick={generateForm} className="btn-primary w-full monospace tracking-widest text-[10px] uppercase font-bold py-4">
+                                        [ Initialize Retry Sequence ]
+                                    </button>
+                                </div>
                             </div>
                         )}
                     </div>

@@ -91,7 +91,7 @@ export default function TemplatesPage() {
                         <button
                             key={template.id}
                             onClick={() => handleSelect(template)}
-                            className="group relative bg-[#0f172a]/60 hover:bg-[#1e293b]/60 border border-white/5 hover:border-indigo-500/30 rounded-[2.5rem] p-10 md:p-14 text-left transition-all duration-500 cursor-pointer fade-in flex flex-col h-full shadow-2xl tech-card active:scale-[0.98]"
+                            className="group relative bg-[#0f172a]/60 hover:bg-[#1e293b]/60 border border-white/5 hover:border-indigo-500/30 rounded-[2.5rem] p-10 pb-12 md:p-14 md:pb-16 text-left transition-all duration-500 cursor-pointer fade-in flex flex-col h-full shadow-2xl tech-card active:scale-[0.98]"
                             style={{ animationDelay: `${i * 100}ms` }}
                         >
                             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-10 mb-10">
