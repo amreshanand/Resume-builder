@@ -5,47 +5,108 @@ export default function HomePage() {
     const { user } = useAuth();
 
     return (
-        <div className="min-h-screen bg-[#020617] text-white selection:bg-indigo-500/30 overflow-x-hidden">
-            {/* Extremely Lightweight Background */}
-            <div className="fixed inset-0 z-0 bg-[#020617] pointer-events-none" />
+        <div className="min-h-screen bg-[#020617] text-white selection:bg-indigo-500/30 overflow-x-hidden relative">
+            {/* 3D Tech Grid Background */}
+            <div className="fixed inset-0 z-0 bg-[#020617] opacity-40">
+                <div className="tech-grid h-full w-full opacity-30" />
+            </div>
+
+            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+                <div className="tech-grid-3d opacity-[0.15]" />
+            </div>
 
             <main className="relative z-10 w-full">
-                {/* Hero Section - Forced spacing with inline style to clear 80px Navbar */}
-                <section style={{ paddingTop: '200px', paddingBottom: '100px' }} className="px-6 w-full contain-paint">
-                    <div className="container-custom max-w-4xl mx-auto text-center">
-                        <div className="slide-up">
-                            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md rounded-full px-5 py-2 mb-10 hover:bg-white/10 transition-all cursor-default group">
-                                <span className="flex h-2 w-2 relative">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                                </span>
-                                <span className="text-[10px] sm:text-xs font-black tracking-[0.3em] text-indigo-300 uppercase">AI-Powered Professional Excellence</span>
+                {/* Hero Section */}
+                <section style={{ paddingTop: '180px', paddingBottom: '120px' }} className="px-6 w-full contain-paint">
+                    <div className="container-custom max-w-7xl mx-auto">
+                        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+                            <div className="flex-1 text-center lg:text-left slide-up">
+                                <div className="inline-flex items-center gap-3 bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md rounded-full px-5 py-2 mb-10 hover:bg-indigo-500/20 transition-all cursor-default group">
+                                    <span className="flex h-2 w-2 relative">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                                    </span>
+                                    <span className="monospace text-[10px] font-bold tracking-[0.3em] text-indigo-300 uppercase">Neural Architecture v2.0</span>
+                                </div>
+
+                                <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-black mb-10 tracking-tight leading-[0.95] text-white">
+                                    Construct <span className="gradient-text pb-4">Future-Ready</span> Resumes.
+                                </h1>
+
+                                <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-16 leading-relaxed font-light">
+                                    Step into the next dimension of career architecture. Our <span className="text-white font-medium">3D-Optimized AI</span> transforms raw experience into professional masterpieces.
+                                </p>
+
+                                <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8">
+                                    <Link
+                                        to="/templates"
+                                        className="btn-primary text-lg px-12 py-5 no-underline group shadow-2xl shadow-indigo-600/20 active:scale-95 transition-all rounded-2xl"
+                                    >
+                                        <span>Start Building</span>
+                                        <span className="group-hover:translate-x-1 transition-transform ml-2">→</span>
+                                    </Link>
+                                    <button
+                                        className="monospace text-[11px] font-bold tracking-[0.4em] text-slate-500 hover:text-indigo-400 transition-all uppercase flex items-center gap-3 group"
+                                    >
+                                        <div className="w-10 h-10 border border-white/10 rounded-full flex items-center justify-center group-hover:border-indigo-500/50">▶</div>
+                                        Watch AI Agent
+                                    </button>
+                                </div>
                             </div>
 
-                            <h1 className="text-5xl md:text-8xl font-black mb-10 tracking-tight leading-[0.95] text-white">
-                                Build Resumes That<br />
-                                <span className="gradient-text pb-4">Win Interviews.</span>
-                            </h1>
+                            {/* 3D Floating Mockup */}
+                            <div className="flex-1 perspective-1000 hidden lg:block">
+                                <div className="floating-3d relative w-full aspect-[4/5] max-w-[450px] mx-auto">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/30 to-purple-600/30 rounded-[3rem] blur-3xl opacity-40 animate-pulse" />
+                                    <div className="relative h-full w-full bg-[#0f172a]/90 border border-white/10 rounded-[2.5rem] p-10 backdrop-blur-xl shadow-2xl overflow-hidden tech-card">
+                                        <div className="flex flex-col gap-6 h-full">
+                                            <div className="flex items-center gap-4 border-b border-white/10 pb-8">
+                                                <div className="w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-3xl shadow-lg">👤</div>
+                                                <div>
+                                                    <div className="h-4 w-32 bg-indigo-400/20 rounded-full mb-3" />
+                                                    <div className="h-3 w-20 bg-white/10 rounded-full" />
+                                                </div>
+                                                <div className="ml-auto flex flex-col items-end">
+                                                    <div className="h-2 w-10 bg-emerald-500/40 rounded-full mb-2 animate-pulse" />
+                                                    <div className="h-2 w-12 bg-indigo-500/40 rounded-full" />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-5 flex-1 pt-4">
+                                                <div className="h-3 w-full bg-white/5 rounded-full" />
+                                                <div className="h-3 w-full bg-white/5 rounded-full" />
+                                                <div className="h-3 w-[80%] bg-white/5 rounded-full" />
+                                                <div className="h-3 w-full bg-white/10 rounded-full mt-12" />
+                                                <div className="h-3 w-[60%] bg-white/5 rounded-full" />
+                                                <div className="h-3 w-[75%] bg-white/5 rounded-full" />
+                                            </div>
+                                            <div className="mt-auto flex justify-between items-center pt-8 border-t border-white/5">
+                                                <div className="flex gap-2">
+                                                    <div className="h-2 w-10 bg-indigo-500/40 rounded-full" />
+                                                    <div className="h-2 w-8 bg-indigo-500/20 rounded-full" />
+                                                </div>
+                                                <div className="monospace text-[10px] text-indigo-400 font-bold">READY TO EXPORT</div>
+                                            </div>
+                                        </div>
 
-                            <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto mb-16 leading-relaxed font-light">
-                                Harness <span className="text-white font-medium">Gemini 1.5 Flash</span> to build professional,
-                                ATS-optimized resumes in seconds. Your career deserves the AI edge.
-                            </p>
+                                        {/* Scanline effect */}
+                                        <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%]" />
+                                    </div>
 
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-                                <Link
-                                    to="/templates"
-                                    className="btn-primary text-lg px-12 py-5 no-underline group shadow-2xl shadow-indigo-600/20 active:scale-95 transition-all"
-                                >
-                                    <span>Get Started Free</span>
-                                    <span className="group-hover:translate-x-1 transition-transform ml-2">→</span>
-                                </Link>
-                                <a
-                                    href="#process"
-                                    className="text-slate-400 hover:text-white transition-all text-base font-bold no-underline flex items-center gap-2 group"
-                                >
-                                    How It Works <span className="text-indigo-400 group-hover:translate-y-1 transition-transform">↓</span>
-                                </a>
+                                    {/* HUD Elements */}
+                                    <div className="absolute -top-12 -right-12 bg-indigo-500 text-white px-5 py-2 rounded-xl monospace text-[10px] font-bold shadow-2xl shadow-indigo-500/50 animate-bounce">
+                                        ⚡ OPTIMIZING
+                                    </div>
+                                    <div className="absolute -bottom-6 -left-12 bg-white/5 border border-white/10 text-slate-300 px-6 py-4 rounded-2xl monospace text-[10px] backdrop-blur-2xl shadow-2xl border-indigo-500/20 group">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                            ATS SCORE: <span className="text-emerald-400 font-bold ml-2">98.4%</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Tech Borders */}
+                                    <div className="absolute top-1/2 -right-4 w-1 h-32 bg-indigo-500/30 rounded-full blur-md" />
+                                    <div className="absolute top-0 right-1/4 w-32 h-1 bg-indigo-500/30 rounded-full blur-md" />
+                                </div>
                             </div>
                         </div>
                     </div>
