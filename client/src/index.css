@@ -16,10 +16,15 @@
   --text-muted: #64748b;
   --danger: #ef4444;
   --success: #10b981;
-  --border: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.06);
   --glass-bg: rgba(15, 23, 42, 0.3);
   --glass-border: rgba(255, 255, 255, 0.08);
   --card-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.5);
+  --admin-accent: #818cf8;
+  --admin-surface: #0a0c10;
+  --admin-card-bg: rgba(10, 12, 16, 0.8);
+  --admin-border: rgba(255, 255, 255, 0.06);
+  --admin-radius: 1.5rem;
 }
 
 * {
@@ -56,20 +61,29 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--surface);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-lighter);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+  background-clip: content-box;
+}
+
+/* Selection */
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: white;
 }
 
 /* Glass morphism utility */
@@ -97,7 +111,6 @@ body {
   contain: paint;
 }
 
-/* Gradient text */
 /* Tech & 3D Utility Classes */
 .perspective-1000 {
   perspective: 1000px;
@@ -123,7 +136,6 @@ body {
   background-size: 50px 50px;
   transform: rotateX(60deg) translateZ(0);
   pointer-events: none;
-  /* animation disabled for performance */
 }
 
 @keyframes gridMove {
@@ -133,7 +145,6 @@ body {
 
   to {
     transform: rotateX(60deg) translateY(0);
-    /* disabled movement for performance */
   }
 }
 
@@ -188,12 +199,55 @@ body {
   letter-spacing: -0.02em;
 }
 
+.premium-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2);
+}
+
+.tech-border {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-border::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), transparent, rgba(99, 102, 241, 0.2));
+  border-radius: inherit;
+  z-index: -1;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  padding: 1px;
+  opacity: 0.5;
+  transition: opacity 0.4s ease;
+}
+
+.tech-border:hover::after {
+  opacity: 1;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
 .gradient-text {
   background: linear-gradient(to right, #818cf8, #22d3ee, #c084fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  /* Removed heavy background-position animation for smooth performance */
 }
 
 /* Shimmer animation */
@@ -249,6 +303,49 @@ body {
   will-change: transform, opacity;
 }
 
+@keyframes animateIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: animateIn 0.5s ease-out forwards;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Pulse glow */
 @keyframes pulseGlow {
 
@@ -271,7 +368,7 @@ body {
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: white;
-  padding: 0.75rem 2rem;
+  padding: 0.875rem 2rem;
   border-radius: 0.75rem;
   font-weight: 600;
   font-size: 0.9375rem;
@@ -292,7 +389,7 @@ body {
 .btn-secondary {
   background: rgba(255, 255, 255, 0.03);
   color: var(--text-primary);
-  padding: 0.75rem 2rem;
+  padding: 0.875rem 2rem;
   border-radius: 0.75rem;
   font-weight: 500;
   font-size: 0.9375rem;
@@ -313,12 +410,12 @@ body {
 /* Input styles */
 .input {
   width: 100%;
-  padding: 0.625rem 0.875rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border);
-  background: var(--surface-light);
+  padding: 0.875rem 1.125rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.8);
   color: var(--text-primary);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-family: inherit;
   transition: all 0.2s ease;
   outline: none;
@@ -327,10 +424,156 @@ body {
 .input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  background: rgba(15, 23, 42, 1);
 }
 
 .input::placeholder {
   color: var(--text-muted);
+}
+
+/* ===== ADMIN PANEL DESIGN SYSTEM ===== */
+.admin-card {
+  background: var(--admin-surface);
+  padding: 2rem;
+  border-radius: var(--admin-radius);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-card:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(99, 102, 241, 0.08);
+}
+
+.admin-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.04), transparent 60%);
+  pointer-events: none;
+}
+
+.admin-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #fff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-input:focus {
+  border-color: rgba(99, 102, 241, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-input::placeholder {
+  color: #475569;
+}
+
+.admin-button {
+  padding: 0.75rem 1.75rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 1px solid rgba(99, 102, 241, 0.5);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 8px 20px -6px rgba(99, 102, 241, 0.3);
+}
+
+.admin-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px -8px rgba(99, 102, 241, 0.5);
+}
+
+.admin-button:active {
+  transform: scale(0.97);
+}
+
+.admin-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.admin-subtitle {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #64748b;
+  margin-top: 0.5rem;
+  line-height: 1.5;
+}
+
+.admin-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+
+.admin-toggle {
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  position: relative;
+  padding: 0.125rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.admin-toggle::after {
+  content: '';
+  height: 1.25rem;
+  width: 1.25rem;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.admin-toggle.active::after {
+  left: calc(100% - 1.375rem);
+}
+
+/* Specific Glows */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.glow-rose {
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.3);
 }
 
 /* Resume page (white background for preview) */

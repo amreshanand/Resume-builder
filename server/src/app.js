@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const connectDB = require('./config/db');
 const { PORT, CLIENT_URL, NODE_ENV } = require('./config/env');
 const { errorHandler } = require('./middleware/errorHandler');
 const { generalLimiter } = require('./middleware/rateLimiter');
@@ -11,6 +10,8 @@ const { generalLimiter } = require('./middleware/rateLimiter');
 const authRoutes = require('./routes/authRoutes');
 const resumeRoutes = require('./routes/resumeRoutes');
 const aiRoutes = require('./routes/aiRoutes');
+const templateRoutes = require('./routes/templateRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const { getPublicResume } = require('./controllers/resumeController');
 
 const app = express();
@@ -38,9 +39,11 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/resumes', resumeRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/templates', templateRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Public routes (no auth)
-app.get('/api/public/resume/:slug', getPublicResume);
+app.get('/api/public/resume/:username/:id', getPublicResume);
 
 // 404 handler
 app.use((req, res) => {
@@ -50,14 +53,17 @@ app.use((req, res) => {
 // Global error handler
 app.use(errorHandler);
 
-// Start server
+// Start server (using Supabase — no MongoDB required)
 const startServer = async () => {
-    await connectDB();
-    app.listen(PORT, () => {
-        console.log(`🚀 Server running on port ${PORT} in ${NODE_ENV} mode`);
-    });
+    console.log('🔗 Using Supabase as database backend');
+    const server = app.listen(PORT);
+    await server;
+    console.log(`🚀 Server running on port ${PORT} in ${NODE_ENV} mode`);
 };
 
-startServer();
+startServer().catch(err => {
+    console.error('❌ Failed to start server:', err);
+    process.exit(1);
+});
 
 module.exports = app;

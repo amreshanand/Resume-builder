@@ -1,7 +1,37 @@
+import { useState } from 'react';
 import ChipsInput from './ChipsInput';
+import { Sparkles, Loader2 } from 'lucide-react';
+import aiService from '../../services/aiService';
+import toast from 'react-hot-toast';
 
 export default function FormField({ field, value, onChange }) {
     const { id, label, type, placeholder, required, helpText, suggestions, options } = field;
+    const [isImproving, setIsImproving] = useState(false);
+
+    const handleImproveWithAI = async () => {
+        if (!value || value.trim().length < 10) {
+            toast.error('Please write at least a few words to improve.');
+            return;
+        }
+        setIsImproving(true);
+        try {
+            const result = await aiService.improveContent(value, `context for improving ${label}`);
+            if (result && result.improvedText) {
+                onChange(result.improvedText);
+                toast.success('Improved with AI!');
+            } else if (result && result.data && result.data.improvedText) {
+                onChange(result.data.improvedText);
+                toast.success('Improved with AI!');
+            } else if (result && result.data) {
+                onChange(result.data);
+                toast.success('Improved with AI!');
+            }
+        } catch (error) {
+            toast.error('Failed to improve content.');
+        } finally {
+            setIsImproving(false);
+        }
+    };
 
     const renderField = () => {
         switch (type) {
@@ -90,10 +120,24 @@ export default function FormField({ field, value, onChange }) {
     return (
         <div className="space-y-1.5">
             {type !== 'toggle' && (
-                <label htmlFor={id} className="block text-sm font-medium text-[var(--text-secondary)]">
-                    {label}
-                    {required && <span className="text-[var(--danger)] ml-1">*</span>}
-                </label>
+                <div className="flex items-center justify-between">
+                    <label htmlFor={id} className="block text-sm font-medium text-[var(--text-secondary)]">
+                        {label}
+                        {required && <span className="text-[var(--danger)] ml-1">*</span>}
+                    </label>
+                    {type === 'textarea' && (
+                        <button
+                            type="button"
+                            onClick={handleImproveWithAI}
+                            disabled={isImproving || !value}
+                            className={`flex items-center gap-1.5 text-xs font-medium px-2 py-1 rounded-md transition-colors 
+                                ${!value ? 'text-[var(--text-muted)] cursor-not-allowed' : 'text-purple-400 hover:text-purple-300 hover:bg-purple-400/10'}`}
+                        >
+                            {isImproving ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+                            {isImproving ? 'Improving...' : 'Improve with AI'}
+                        </button>
+                    )}
+                </div>
             )}
             {renderField()}
             {helpText && (

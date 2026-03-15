@@ -1,28 +1,56 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const bcrypt = require('bcryptjs');
+const supabase = require('../config/supabase');
 const { JWT_SECRET } = require('../config/env');
 
 const generateToken = (user) => {
-    return jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+    return jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
 };
 
 exports.register = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
 
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
+        // Check existing user
+        const { data: existing } = await supabase
+            .from('users')
+            .select('id')
+            .eq('email', email.toLowerCase())
+            .single();
+
+        if (existing) {
             return res.status(400).json({ success: false, error: 'Email already registered' });
         }
 
-        const user = await User.create({ name, email, password });
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const { data: user, error } = await supabase
+            .from('users')
+            .insert({
+                name,
+                email: email.toLowerCase(),
+                password: hashedPassword,
+            })
+            .select('id, name, email, plan, ai_credits, is_admin')
+            .single();
+
+        if (error) throw error;
+
         const token = generateToken(user);
 
         res.status(201).json({
             success: true,
             data: {
                 token,
-                user: { id: user._id, name: user.name, email: user.email, plan: user.plan, aiCredits: user.aiCredits },
+                user: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    plan: user.plan,
+                    aiCredits: user.ai_credits,
+                    isAdmin: user.is_admin,
+                },
             },
         });
     } catch (error) {
@@ -34,14 +62,32 @@ exports.login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
-        const user = await User.findOne({ email }).select('+password');
-        if (!user || !(await user.comparePassword(password))) {
+        const { data: user, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', email.toLowerCase())
+            .single();
+
+        if (!user || error) {
+            return res.status(401).json({ success: false, error: 'Invalid email or password' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(401).json({ success: false, error: 'Invalid email or password' });
         }
 
         // Reset AI credits if new day
-        user.checkAndResetCredits();
-        await user.save();
+        const now = new Date();
+        const lastReset = new Date(user.ai_credits_reset_at);
+        if (now.toDateString() !== lastReset.toDateString()) {
+            const newCredits = user.plan === 'pro' ? 100 : 10;
+            await supabase
+                .from('users')
+                .update({ ai_credits: newCredits, ai_credits_reset_at: now.toISOString() })
+                .eq('id', user.id);
+            user.ai_credits = newCredits;
+        }
 
         const token = generateToken(user);
 
@@ -49,7 +95,14 @@ exports.login = async (req, res, next) => {
             success: true,
             data: {
                 token,
-                user: { id: user._id, name: user.name, email: user.email, plan: user.plan, aiCredits: user.aiCredits },
+                user: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    plan: user.plan,
+                    aiCredits: user.ai_credits,
+                    isAdmin: user.is_admin,
+                },
             },
         });
     } catch (error) {
@@ -59,17 +112,38 @@ exports.login = async (req, res, next) => {
 
 exports.getMe = async (req, res, next) => {
     try {
-        const user = await User.findById(req.user.id);
-        if (!user) {
+        const { data: user, error } = await supabase
+            .from('users')
+            .select('id, name, email, plan, ai_credits, ai_credits_reset_at, is_admin')
+            .eq('id', req.user.id)
+            .single();
+
+        if (!user || error) {
             return res.status(404).json({ success: false, error: 'User not found' });
         }
 
-        user.checkAndResetCredits();
-        await user.save();
+        // Reset AI credits if new day
+        const now = new Date();
+        const lastReset = new Date(user.ai_credits_reset_at);
+        if (now.toDateString() !== lastReset.toDateString()) {
+            const newCredits = user.plan === 'pro' ? 100 : 10;
+            await supabase
+                .from('users')
+                .update({ ai_credits: newCredits, ai_credits_reset_at: now.toISOString() })
+                .eq('id', user.id);
+            user.ai_credits = newCredits;
+        }
 
         res.json({
             success: true,
-            data: { id: user._id, name: user.name, email: user.email, plan: user.plan, aiCredits: user.aiCredits },
+            data: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                plan: user.plan,
+                aiCredits: user.ai_credits,
+                isAdmin: user.is_admin,
+            },
         });
     } catch (error) {
         next(error);

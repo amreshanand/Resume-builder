@@ -4,9 +4,9 @@ import { authService } from '../services/resumeService';
 const AuthContext = createContext(null);
 
 const initialState = {
-    user: { id: 'guest', name: 'Guest User', email: 'guest@example.com', aiCredits: 999 },
-    token: 'guest-token',
-    loading: false,
+    user: null,
+    token: null,
+    loading: true,
     error: null,
 };
 
@@ -68,7 +68,26 @@ export function AuthProvider({ children }) {
 
     // Verify token on mount
     useEffect(() => {
-        // Token verification disabled for guest access
+        const initAuth = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await authService.getMe();
+                    // Assumes response has { data: user } or just { user } 
+                    // Let's rely on localStorage cache first for fast render, then verify
+                    const user = response.data || response;
+                    dispatch({ type: 'LOGIN_SUCCESS', payload: { user, token } });
+                } catch (err) {
+                    console.error('Session expired', err);
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    dispatch({ type: 'LOGOUT' });
+                }
+            } else {
+                dispatch({ type: 'LOGOUT' });
+            }
+        };
+        initAuth();
     }, []);
 
     return (

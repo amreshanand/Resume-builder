@@ -5,6 +5,8 @@ const ResumeContext = createContext(null);
 const initialState = {
     templateType: null,
     templateId: null,
+    templateSections: [], // Sections defined by the selected template
+    templateColor: null,
     formSchema: null,
     sections: {},
     activeSection: 0,
@@ -18,9 +20,29 @@ const initialState = {
 function resumeReducer(state, action) {
     switch (action.type) {
         case 'SET_TEMPLATE':
-            return { ...state, templateType: action.payload.type, templateId: action.payload.id };
+            return {
+                ...state,
+                templateType: action.payload.type,
+                templateId: action.payload.id,
+                templateSections: action.payload.sections || [],
+                templateColor: action.payload.color || null
+            };
         case 'SET_FORM_SCHEMA':
             return { ...state, formSchema: action.payload };
+        case 'REORDER_SECTIONS': {
+            if (!state.formSchema || !state.formSchema.sections) return state;
+            const newSections = [...state.formSchema.sections];
+            const [movedItem] = newSections.splice(action.payload.oldIndex, 1);
+            newSections.splice(action.payload.newIndex, 0, movedItem);
+            return {
+                ...state,
+                formSchema: {
+                    ...state.formSchema,
+                    sections: newSections
+                },
+                isPreviewDirty: true
+            };
+        }
         case 'SET_RESUME_ID':
             return { ...state, resumeId: action.payload };
         case 'SET_TITLE':

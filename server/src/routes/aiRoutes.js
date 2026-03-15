@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const auth = require('../middleware/auth');
+const { auth } = require('../middleware/auth');
 const { aiLimiter } = require('../middleware/rateLimiter');
 const { validateFormGeneration, validateImproveContent, validateATSScore } = require('../middleware/validate');
 const { generateForm, improveContent, suggestAchievements, atsScore } = require('../controllers/aiController');

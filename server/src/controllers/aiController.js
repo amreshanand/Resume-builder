@@ -1,21 +1,38 @@
-const User = require('../models/User');
+const supabase = require('../config/supabase');
 const aiService = require('../services/aiService');
 const { AppError } = require('../middleware/errorHandler');
 
 // Check and deduct AI credits
 async function checkCredits(userId) {
-    const user = await User.findById(userId);
-    if (!user) throw new AppError('User not found', 404);
+    const { data: user, error } = await supabase
+        .from('users')
+        .select('id, ai_credits, ai_credits_reset_at, plan')
+        .eq('id', userId)
+        .single();
 
-    user.checkAndResetCredits();
+    if (!user || error) throw new AppError('User not found', 404);
 
-    if (user.aiCredits <= 0) {
+    // Reset credits if new day
+    const now = new Date();
+    const lastReset = new Date(user.ai_credits_reset_at);
+    let credits = user.ai_credits;
+
+    if (now.toDateString() !== lastReset.toDateString()) {
+        credits = user.plan === 'pro' ? 100 : 10;
+    }
+
+    if (credits <= 0) {
         throw new AppError('No AI credits remaining. Credits reset daily.', 429);
     }
 
-    user.aiCredits -= 1;
-    await user.save();
-    return user.aiCredits;
+    credits -= 1;
+
+    await supabase
+        .from('users')
+        .update({ ai_credits: credits, ai_credits_reset_at: now.toISOString() })
+        .eq('id', userId);
+
+    return credits;
 }
 
 exports.generateForm = async (req, res, next) => {

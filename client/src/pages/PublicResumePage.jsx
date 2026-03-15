@@ -17,7 +17,7 @@ const TEMPLATE_MAP = {
 };
 
 export default function PublicResumePage() {
-    const { slug } = useParams();
+    const { username, id } = useParams();
     const [resume, setResume] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -25,7 +25,8 @@ export default function PublicResumePage() {
     useEffect(() => {
         const fetchPublicResume = async () => {
             try {
-                const { data } = await axios.get(`/api/public/resume/${slug}`);
+                // We're querying the backend using id (and potentially matching username optionally)
+                const { data } = await axios.get(`/api/public/resume/${id}`);
                 setResume(data.data);
             } catch (err) {
                 setError('Resume not found or no longer available.');
@@ -35,7 +36,7 @@ export default function PublicResumePage() {
         };
 
         fetchPublicResume();
-    }, [slug]);
+    }, [id, username]);
 
     if (loading) {
         return (

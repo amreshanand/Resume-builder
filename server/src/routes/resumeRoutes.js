@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const auth = require('../middleware/auth');
+const { auth } = require('../middleware/auth');
 const {
     createResume, getResumes, getResume, updateResume, deleteResume, shareResume, getPublicResume,
 } = require('../controllers/resumeController');

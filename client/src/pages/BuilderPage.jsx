@@ -6,6 +6,8 @@ import ResumePreview from '../components/preview/ResumePreview';
 import Loader from '../components/common/Loader';
 import aiService from '../services/aiService';
 import { exportToPDF } from '../utils/pdfExport';
+import { resumeService } from '../services/resumeService';
+import toast from 'react-hot-toast';
 
 export default function BuilderPage() {
     const { state, dispatch } = useResume();
@@ -61,6 +63,39 @@ export default function BuilderPage() {
         }
     };
 
+    const handleSave = async () => {
+        if (!state.resumeId) {
+            toast.error('Resume ID not found, please create from dashboard.');
+            return;
+        }
+        try {
+            await resumeService.update(state.resumeId, {
+                title: state.title || 'Untitled',
+                sections: state.sections,
+                formSchema: state.formSchema,
+            });
+            dispatch({ type: 'MARK_CLEAN' });
+            toast.success('Resume saved successfully!');
+        } catch (err) {
+            toast.error('Failed to save resume.');
+        }
+    };
+
+    const handleShare = async () => {
+        if (!state.resumeId) {
+            toast.error('Please save your resume first.');
+            return;
+        }
+        try {
+            const result = await resumeService.share(state.resumeId);
+            const url = `${window.location.origin}${result.data.shareUrl}`;
+            await navigator.clipboard.writeText(url);
+            toast.success('Share link copied to clipboard!');
+        } catch (err) {
+            toast.error('Failed to generate share link.');
+        }
+    };
+
     if (!state.templateType) return null;
 
     return (
@@ -84,6 +119,23 @@ export default function BuilderPage() {
                     >
                         {showPreview ? '📝 Form' : '👁 Preview'}
                     </button>
+                    {state.resumeId && (
+                        <>
+                            <button
+                                onClick={handleSave}
+                                className="btn-secondary text-xs"
+                                disabled={!state.isPreviewDirty}
+                            >
+                                {state.isPreviewDirty ? '💾 Save Changes' : '✅ Saved'}
+                            </button>
+                            <button
+                                onClick={handleShare}
+                                className="btn-secondary text-xs"
+                            >
+                                🔗 Share
+                            </button>
+                        </>
+                    )}
                     <button
                         onClick={handleExportPDF}
                         disabled={exporting}

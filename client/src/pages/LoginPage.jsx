@@ -21,37 +21,40 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-4 pt-16">
+        <div className="min-h-screen flex items-center justify-center px-4 pt-20">
             <div className="w-full max-w-md slide-up">
-                <div className="glass rounded-2xl p-8">
-                    <div className="text-center mb-8">
-                        <h1 className="text-2xl font-bold gradient-text mb-2">Welcome Back</h1>
-                        <p className="text-sm text-[var(--text-muted)]">Sign in to continue building amazing resumes</p>
+                <div className="glass rounded-2xl p-10 border border-white/10">
+                    <div className="text-center mb-10">
+                        <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-indigo-500/30">
+                            R
+                        </div>
+                        <h1 className="text-3xl font-bold gradient-text mb-3">Welcome Back</h1>
+                        <p className="text-base text-[var(--text-muted)]">Sign in to continue building amazing resumes</p>
                     </div>
 
                     {error && (
-                        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-6 text-sm text-red-400">
+                        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-6 text-sm text-red-400">
                             {error}
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">Email</label>
+                            <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-2">Email</label>
                             <input type="email" className="input" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-1.5">Password</label>
+                            <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-2">Password</label>
                             <input type="password" className="input" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} required />
                         </div>
-                        <button type="submit" className="btn-primary w-full justify-center" disabled={loading}>
+                        <button type="submit" className="btn-primary w-full justify-center text-base py-3.5" disabled={loading}>
                             {loading ? 'Signing in...' : 'Sign In'}
                         </button>
                     </form>
 
-                    <p className="text-center text-sm text-[var(--text-muted)] mt-6">
+                    <p className="text-center text-[0.9375rem] text-[var(--text-muted)] mt-8">
                         Don't have an account?{' '}
-                        <Link to="/register" className="text-[var(--primary-light)] hover:underline">Sign up</Link>
+                        <Link to="/register" className="text-[var(--primary-light)] hover:underline font-semibold">Sign up</Link>
                     </p>
                 </div>
             </div>
