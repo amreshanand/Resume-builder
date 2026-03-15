@@ -11,7 +11,7 @@ export default function TemplateManager() {
     const initialFormState = {
         name: '',
         category: '',
-        thumbnail: '',
+        previewImage: '',
         isPremium: false,
         isActive: true,
         tags: '',
@@ -136,8 +136,8 @@ export default function TemplateManager() {
 
                         {/* Thumbnail */}
                         <div className="h-44 bg-slate-100 p-4 border-b border-slate-100 relative overflow-hidden flex items-center justify-center">
-                            {template.thumbnail ? (
-                                <img src={template.thumbnail} alt={template.name} className="h-full w-auto object-contain rounded drop-shadow-md group-hover:scale-105 transition-transform duration-500" />
+                            {template.previewImage ? (
+                                <img src={template.previewImage} alt={template.name} className="h-full w-auto object-contain rounded drop-shadow-md group-hover:scale-105 transition-transform duration-500" />
                             ) : (
                                 <div className="text-slate-400 flex flex-col items-center gap-2">
                                     <svg className="w-10 h-10 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -262,15 +262,48 @@ export default function TemplateManager() {
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700 block text-slate-700">Thumbnail URL</label>
-                                <input
-                                    type="url"
-                                    className="w-full bg-white border border-slate-200 p-3 rounded-lg text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm shadow-sm"
-                                    placeholder="https://example.com/image.jpg"
-                                    value={formData.thumbnail}
-                                    onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
-                                />
+                            <div className="space-y-2 md:col-span-2">
+                                <label className="text-sm font-bold text-slate-700 block text-slate-700">Template Preview Image</label>
+                                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 border-dashed rounded-lg hover:border-indigo-500 transition-colors bg-slate-50">
+                                    <div className="space-y-2 text-center w-full">
+                                        {formData.previewImage ? (
+                                            <div className="relative mx-auto w-full max-w-[200px] border border-slate-200 rounded-lg p-2 bg-white">
+                                                <img src={formData.previewImage} alt="Preview" className="w-full h-auto object-contain" />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setFormData({ ...formData, previewImage: '' })}
+                                                    className="absolute -top-3 -right-3 bg-rose-500 text-white rounded-full p-1.5 shadow-md hover:bg-rose-600 transition-colors"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <svg className="mx-auto h-12 w-12 text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <div className="flex text-sm text-slate-600 justify-center">
+                                                    <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500 px-2">
+                                                        <span>Upload a file from Mac</span>
+                                                        <input id="file-upload" name="file-upload" type="file" className="sr-only" accept="image/*" onChange={(e) => {
+                                                            const file = e.target.files[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+                                                                reader.onloadend = () => {
+                                                                    setFormData({ ...formData, previewImage: reader.result });
+                                                                };
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        }} />
+                                                    </label>
+                                                </div>
+                                                <p className="text-xs text-slate-500 font-medium">PNG, JPG, GIF up to 10MB</p>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="space-y-2">
