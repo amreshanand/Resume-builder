@@ -1,24 +1,29 @@
 import { useState, useEffect } from 'react';
 import api from '../../services/api';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function DashboardStats() {
     const [stats, setStats] = useState(null);
+    const [recentActivity, setRecentActivity] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchStats();
+        const loadData = async () => {
+            try {
+                const [statsRes, activityRes] = await Promise.all([
+                    api.get('/admin/stats'),
+                    api.get('/admin/activity')
+                ]);
+                setStats(statsRes.data.data);
+                setRecentActivity(activityRes.data.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Failed to fetch dashboard data:', error);
+                setLoading(false);
+            }
+        };
+        loadData();
     }, []);
-
-    const fetchStats = async () => {
-        try {
-            const { data } = await api.get('/admin/stats');
-            setStats(data.data);
-            setLoading(false);
-        } catch (error) {
-            console.error('Failed to fetch stats:', error);
-            setLoading(false);
-        }
-    };
 
     if (loading) {
         return (
@@ -40,15 +45,9 @@ export default function DashboardStats() {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total Users</p>
-                            <h3 className="text-3xl font-black text-slate-900 mt-2 mb-1">{stats.totalUsers}</h3>
+                            <h3 className="text-3xl font-black text-slate-900 mt-2 mb-1">{stats.totalUsers || 0}</h3>
                             <div className="flex items-center gap-1.5 text-sm font-semibold">
-                                <span className="text-emerald-500 flex items-center bg-emerald-50 px-1.5 py-0.5 rounded-md">
-                                    <svg className="w-3.5 h-3.5 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                                    </svg>
-                                    +12.5%
-                                </span>
-                                <span className="text-slate-400 font-medium text-xs">vs last month</span>
+                                <span className="text-slate-400 font-medium text-xs">registered accounts</span>
                             </div>
                         </div>
                         <div className="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
@@ -64,15 +63,9 @@ export default function DashboardStats() {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide">Pro Users</p>
-                            <h3 className="text-3xl font-black text-slate-900 mt-2 mb-1">{stats.proUsers}</h3>
+                            <h3 className="text-3xl font-black text-slate-900 mt-2 mb-1">{stats.proUsers || 0}</h3>
                             <div className="flex items-center gap-1.5 text-sm font-semibold">
-                                <span className="text-emerald-500 flex items-center bg-emerald-50 px-1.5 py-0.5 rounded-md">
-                                    <svg className="w-3.5 h-3.5 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                                    </svg>
-                                    +4.2%
-                                </span>
-                                <span className="text-slate-400 font-medium text-xs">vs last month</span>
+                                <span className="text-slate-400 font-medium text-xs">premium accounts</span>
                             </div>
                         </div>
                         <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
@@ -88,15 +81,9 @@ export default function DashboardStats() {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide">Total Resumes</p>
-                            <h3 className="text-3xl font-black text-slate-900 mt-2 mb-1">{stats.totalResumes}</h3>
+                            <h3 className="text-3xl font-black text-slate-900 mt-2 mb-1">{stats.totalResumes || 0}</h3>
                             <div className="flex items-center gap-1.5 text-sm font-semibold">
-                                <span className="text-emerald-500 flex items-center bg-emerald-50 px-1.5 py-0.5 rounded-md">
-                                    <svg className="w-3.5 h-3.5 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                                    </svg>
-                                    +24.7%
-                                </span>
-                                <span className="text-slate-400 font-medium text-xs">vs last month</span>
+                                <span className="text-slate-400 font-medium text-xs">generated documents</span>
                             </div>
                         </div>
                         <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
@@ -112,15 +99,9 @@ export default function DashboardStats() {
                     <div className="flex justify-between items-start">
                         <div>
                             <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide">Active Templates</p>
-                            <h3 className="text-3xl font-black text-slate-900 mt-2 mb-1">24</h3>
+                            <h3 className="text-3xl font-black text-slate-900 mt-2 mb-1">{stats.totalTemplates || 0}</h3>
                             <div className="flex items-center gap-1.5 text-sm font-semibold">
-                                <span className="text-rose-500 flex items-center bg-rose-50 px-1.5 py-0.5 rounded-md">
-                                    <svg className="w-3.5 h-3.5 mr-0.5 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                                    </svg>
-                                    -1.2%
-                                </span>
-                                <span className="text-slate-400 font-medium text-xs">vs last month</span>
+                                <span className="text-slate-400 font-medium text-xs">system templates</span>
                             </div>
                         </div>
                         <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
@@ -132,124 +113,87 @@ export default function DashboardStats() {
                 </div>
             </div>
 
-            {/* Main Content Area (Charts / Health) */}
+            {/* Main Content Area (Charts / Breakdown) */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Platform Activity Chart (Mock) */}
+                {/* Platform Activity Chart using Recharts with Real Data */}
                 <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
                     <div className="flex items-center justify-between mb-8">
                         <div>
-                            <h3 className="text-lg font-bold text-slate-900">Overview</h3>
-                            <p className="text-sm font-medium text-slate-500">Monthly performance for the current year</p>
-                        </div>
-                        <div className="flex items-center gap-2 bg-slate-50 p-1 rounded-lg border border-slate-200">
-                            <button className="px-3 py-1.5 text-xs font-bold bg-white text-slate-900 rounded shadow-sm border border-slate-200">Revenue</button>
-                            <button className="px-3 py-1.5 text-xs font-bold text-slate-500 hover:text-slate-800">Users</button>
-                            <button className="px-3 py-1.5 text-xs font-bold text-slate-500 hover:text-slate-800">Growth</button>
+                            <h3 className="text-lg font-bold text-slate-900">Platform Growth</h3>
+                            <p className="text-sm font-medium text-slate-500">User and resume creation over the last 6 months</p>
                         </div>
                     </div>
-                    {/* Fake Chart Graphic */}
-                    <div className="h-64 relative w-full flex items-end justify-between px-2">
-                        <div className="absolute inset-0 flex flex-col justify-between border-l border-b border-slate-200 pb-2 pl-2">
-                            {[60, 45, 30, 15, 0].map(val => (
-                                <div key={val} className="w-full h-[1px] bg-slate-100 flex items-center">
-                                    <span className="text-[10px] sm:-ml-8 text-slate-400 font-medium">${val}k</span>
-                                </div>
-                            ))}
-                        </div>
-                        {/* Wavy line mock using an svg path for realism based on the screenshot */}
-                        <svg className="absolute bottom-6 left-0 w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
-                            <defs>
-                                <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
-                                    <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.4" />
-                                    <stop offset="100%" stopColor="#f43f5e" stopOpacity="0.0" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M0,80 Q10,75 20,85 T40,65 T60,50 T80,45 T100,20 L100,100 L0,100 Z" fill="url(#gradient)" />
-                            <path d="M0,80 Q10,75 20,85 T40,65 T60,50 T80,45 T100,20" fill="none" stroke="#f43f5e" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                        
-                        {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map((month) => (
-                            <span key={month} className="text-[10px] text-slate-400 font-bold z-10 w-8 text-center mt-auto pb-[-10px] absolute" style={{left: `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].indexOf(month) * 8.5 + 4}%`, bottom: '-20px'}}>
-                                {month}
-                            </span>
-                        ))}
+                    {/* Recharts Realistic Chart */}
+                    <div className="h-72 w-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <AreaChart
+                                data={stats.chartData || []}
+                                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+                            >
+                                <defs>
+                                    <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
+                                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                                    </linearGradient>
+                                    <linearGradient id="colorResumes" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                                    </linearGradient>
+                                </defs>
+                                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12, fontWeight: 600}} dy={10} />
+                                <YAxis axisLine={false} tickLine={false} tick={{fill: '#94a3b8', fontSize: 12, fontWeight: 600}} />
+                                <CartesianGrid vertical={false} stroke="#f1f5f9" strokeDasharray="4 4" />
+                                <Tooltip 
+                                    contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                                    itemStyle={{ fontWeight: 'bold' }}
+                                />
+                                <Area type="monotone" dataKey="users" name="New Users" stroke="#6366f1" strokeWidth={3} fillOpacity={1} fill="url(#colorUsers)" />
+                                <Area type="monotone" dataKey="resumes" name="Resumes" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorResumes)" />
+                            </AreaChart>
+                        </ResponsiveContainer>
                     </div>
                 </div>
 
                 <div className="space-y-6">
-                    {/* Traffic Sources */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                        <h3 className="text-lg font-bold text-slate-900">Traffic Sources</h3>
-                        <p className="text-sm font-medium text-slate-500 mb-6">Where your visitors come from</p>
-                        
+                    {/* User Accounts Overview */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 h-[48%] flex flex-col justify-center">
                         <div className="flex items-center gap-6">
-                            <div className="w-24 h-24 rounded-full border-[6px] border-slate-100 relative shrink-0">
-                                {/* SVG circle for the chart */}
-                                <svg className="absolute inset-0 w-full h-full -rotate-90">
-                                    <circle className="text-emerald-500" strokeWidth="6" stroke="currentColor" fill="transparent" r="42" cx="48" cy="48" strokeDasharray="264" strokeDashoffset="80"/>
-                                    <circle className="text-sky-500" strokeWidth="6" stroke="currentColor" fill="transparent" r="42" cx="48" cy="48" strokeDasharray="264" strokeDashoffset="180"/>
-                                    <circle className="text-amber-500" strokeWidth="6" stroke="currentColor" fill="transparent" r="42" cx="48" cy="48" strokeDasharray="264" strokeDashoffset="240"/>
+                            <div className="w-20 h-20 rounded-full border-[6px] border-indigo-50 relative shrink-0 flex items-center justify-center">
+                                <svg className="w-8 h-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
-                                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                    <span className="text-xl font-black text-slate-900">284K</span>
-                                    <span className="text-[10px] font-bold text-slate-500 uppercase">Visits</span>
-                                </div>
                             </div>
                             
                             <div className="flex-1 space-y-3">
                                 <div className="flex items-center justify-between text-sm font-semibold">
-                                    <div className="flex items-center gap-2 text-slate-600"><div className="w-2 h-2 rounded-full bg-emerald-500" /> Direct</div>
-                                    <span className="text-slate-900 font-bold">35%</span>
+                                    <div className="flex items-center gap-2 text-slate-600"><div className="w-2 h-2 rounded-full bg-emerald-500" /> Pro Plan</div>
+                                    <span className="text-slate-900 font-bold">{stats.proUsers || 0}</span>
                                 </div>
                                 <div className="flex items-center justify-between text-sm font-semibold">
-                                    <div className="flex items-center gap-2 text-slate-600"><div className="w-2 h-2 rounded-full bg-sky-500" /> Organic</div>
-                                    <span className="text-slate-900 font-bold">28%</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm font-semibold">
-                                    <div className="flex items-center gap-2 text-slate-600"><div className="w-2 h-2 rounded-full bg-indigo-500" /> Referral</div>
-                                    <span className="text-slate-900 font-bold">22%</span>
-                                </div>
-                                <div className="flex items-center justify-between text-sm font-semibold">
-                                    <div className="flex items-center gap-2 text-slate-600"><div className="w-2 h-2 rounded-full bg-amber-500" /> Social</div>
-                                    <span className="text-slate-900 font-bold">15%</span>
+                                    <div className="flex items-center gap-2 text-slate-600"><div className="w-2 h-2 rounded-full bg-slate-400" /> Free Plan</div>
+                                    <span className="text-slate-900 font-bold">{Math.max(0, (stats.totalUsers || 0) - (stats.proUsers || 0))}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Component Health & Goals */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-                        <h3 className="text-lg font-bold text-slate-900">System Health</h3>
-                        <p className="text-sm font-medium text-slate-500 mb-6">Track progress and metrics</p>
-                        
-                        <div className="space-y-5">
-                            <div>
-                                <div className="flex justify-between items-center mb-1 text-sm font-bold">
-                                    <span className="text-slate-700">Database Load</span>
-                                    <span className="text-emerald-500">24%</span>
-                                </div>
-                                <div className="w-full bg-slate-100 rounded-full h-1.5 border border-slate-200/50">
-                                    <div className="bg-emerald-500 h-1.5 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.4)]" style={{ width: '24%' }}></div>
-                                </div>
+                    {/* Resumes Overview */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 h-[48%] flex flex-col justify-center">
+                        <div className="flex items-center gap-6">
+                            <div className="w-20 h-20 rounded-full border-[6px] border-emerald-50 relative shrink-0 flex items-center justify-center">
+                                <svg className="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
                             </div>
                             
-                            <div>
-                                <div className="flex justify-between items-center mb-1 text-sm font-bold">
-                                    <span className="text-slate-700">API Latency</span>
-                                    <span className="text-indigo-500">42ms</span>
+                            <div className="flex-1 space-y-3">
+                                <div className="flex items-center justify-between text-sm font-semibold">
+                                    <div className="flex items-center gap-2 text-slate-600"><div className="w-2 h-2 rounded-full bg-emerald-500" /> Completed</div>
+                                    <span className="text-slate-900 font-bold">{stats.completedResumes || 0}</span>
                                 </div>
-                                <div className="w-full bg-slate-100 rounded-full h-1.5 border border-slate-200/50">
-                                    <div className="bg-indigo-500 h-1.5 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.4)]" style={{ width: '15%' }}></div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <div className="flex justify-between items-center mb-1 text-sm font-bold">
-                                    <span className="text-slate-700">Storage Usage</span>
-                                    <span className="text-sky-500">76%</span>
-                                </div>
-                                <div className="w-full bg-slate-100 rounded-full h-1.5 border border-slate-200/50">
-                                    <div className="bg-sky-500 h-1.5 rounded-full shadow-[0_0_10px_rgba(14,165,233,0.4)]" style={{ width: '76%' }}></div>
+                                <div className="flex items-center justify-between text-sm font-semibold">
+                                    <div className="flex items-center gap-2 text-slate-600"><div className="w-2 h-2 rounded-full bg-amber-500" /> Drafts</div>
+                                    <span className="text-slate-900 font-bold">{Math.max(0, (stats.totalResumes || 0) - (stats.completedResumes || 0))}</span>
                                 </div>
                             </div>
                         </div>
@@ -257,61 +201,49 @@ export default function DashboardStats() {
                 </div>
             </div>
 
-            {/* Recent Table */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                <div className="p-6 border-b border-slate-100">
-                    <h3 className="text-lg font-bold text-slate-900">Recent Activity</h3>
+            {/* Recent Activity Table using true data */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mt-8">
+                <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+                    <h3 className="text-lg font-bold text-slate-900">Recent System Activity</h3>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left whitespace-nowrap">
+                    <table className="w-full text-sm text-left">
                         <thead className="bg-slate-50 border-b border-slate-100 text-xs uppercase font-bold text-slate-500">
                             <tr>
                                 <th className="px-6 py-4">Event Details</th>
                                 <th className="px-6 py-4">Source</th>
-                                <th className="px-6 py-4">Time</th>
-                                <th className="px-6 py-4 text-right">Status</th>
+                                <th className="px-6 py-4 text-right">Time</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100 text-slate-700 font-medium">
-                            <tr className="hover:bg-slate-50/50 transition-colors">
-                                <td className="px-6 py-4 flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded bg-indigo-50 flex items-center justify-center text-indigo-500">
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4"/></svg>
-                                    </div>
-                                    New user registered: Jane Doe
-                                </td>
-                                <td className="px-6 py-4 text-slate-500">Direct</td>
-                                <td className="px-6 py-4">12 mins ago</td>
-                                <td className="px-6 py-4 text-right">
-                                    <span className="px-2.5 py-1 text-xs font-bold bg-emerald-50 text-emerald-600 rounded">Verified</span>
-                                </td>
-                            </tr>
-                            <tr className="hover:bg-slate-50/50 transition-colors">
-                                <td className="px-6 py-4 flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded bg-amber-50 flex items-center justify-center text-amber-500">
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                    </div>
-                                    Resume built: Senior Engineer
-                                </td>
-                                <td className="px-6 py-4 text-slate-500">Web App</td>
-                                <td className="px-6 py-4">15 mins ago</td>
-                                <td className="px-6 py-4 text-right">
-                                    <span className="px-2.5 py-1 text-xs font-bold bg-indigo-50 text-indigo-600 rounded">Completed</span>
-                                </td>
-                            </tr>
-                            <tr className="hover:bg-slate-50/50 transition-colors">
-                                <td className="px-6 py-4 flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded bg-sky-50 flex items-center justify-center text-sky-500">
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                                    </div>
-                                    Template viewed: Creative Agency
-                                </td>
-                                <td className="px-6 py-4 text-slate-500">Guest User</td>
-                                <td className="px-6 py-4">1 hour ago</td>
-                                <td className="px-6 py-4 text-right">
-                                    <span className="px-2.5 py-1 text-xs font-bold bg-slate-100 text-slate-500 rounded">Logged</span>
-                                </td>
-                            </tr>
+                            {recentActivity && recentActivity.length > 0 ? recentActivity.map((activity, idx) => (
+                                <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
+                                    <td className="px-6 py-4 flex items-center gap-3">
+                                        <div className={`w-8 h-8 rounded flex items-center justify-center shrink-0 ${
+                                            activity.type === 'user' 
+                                            ? 'bg-indigo-50 text-indigo-500' 
+                                            : 'bg-amber-50 text-amber-500'
+                                        }`}>
+                                            {activity.type === 'user' ? (
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                            ) : (
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                            )}
+                                        </div>
+                                        <div className="truncate max-w-sm">{activity.event}</div>
+                                    </td>
+                                    <td className="px-6 py-4 text-slate-500">{activity.source}</td>
+                                    <td className="px-6 py-4 text-right text-slate-500">
+                                        {new Date(activity.createdAt).toLocaleString()}
+                                    </td>
+                                </tr>
+                            )) : (
+                                <tr>
+                                    <td colSpan="3" className="px-6 py-8 text-center text-slate-400 font-medium block">
+                                        No recent activity found.
+                                    </td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

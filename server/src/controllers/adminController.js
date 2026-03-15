@@ -12,6 +12,48 @@ exports.getStats = async (req, res) => {
         // Get templates count
         const { count: totalTemplates } = await supabase.from('templates').select('*', { count: 'exact', head: true });
 
+        // Calculate chart data based on recent 6 months
+        // First get all users and resumes dates
+        const sixMonthsAgo = new Date();
+        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5);
+        sixMonthsAgo.setDate(1); // Start of the month 6 months ago
+
+        const { data: recentUsers } = await supabase
+            .from('users')
+            .select('created_at')
+            .gte('created_at', sixMonthsAgo.toISOString());
+            
+        const { data: recentResumes } = await supabase
+            .from('resumes')
+            .select('created_at')
+            .gte('created_at', sixMonthsAgo.toISOString());
+
+        // Group by month
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const chartDataMap = {};
+
+        // Initialize last 6 months
+        for (let i = 5; i >= 0; i--) {
+            const d = new Date();
+            d.setMonth(d.getMonth() - i);
+            const key = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+            chartDataMap[key] = { name: monthNames[d.getMonth()], users: 0, resumes: 0 };
+        }
+
+        (recentUsers || []).forEach(u => {
+            const d = new Date(u.created_at);
+            const key = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+            if (chartDataMap[key]) chartDataMap[key].users++;
+        });
+
+        (recentResumes || []).forEach(r => {
+            const d = new Date(r.created_at);
+            const key = `${monthNames[d.getMonth()]} ${d.getFullYear()}`;
+            if (chartDataMap[key]) chartDataMap[key].resumes++;
+        });
+
+        const chartData = Object.values(chartDataMap);
+
         res.status(200).json({
             success: true,
             data: {
@@ -21,6 +63,7 @@ exports.getStats = async (req, res) => {
                 totalResumes: totalResumes || 0,
                 completedResumes: completedResumes || 0,
                 totalTemplates: totalTemplates || 0,
+                chartData,
             }
         });
     } catch (error) {
