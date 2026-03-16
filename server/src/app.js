@@ -85,16 +85,19 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 // Start server (using Supabase — no MongoDB required)
-const startServer = async () => {
-    console.log('🔗 Using Supabase as database backend');
-    const server = app.listen(PORT);
-    await server;
-    console.log(`🚀 Server running on port ${PORT} in ${NODE_ENV} mode`);
-};
+if (require.main === module) {
+    const startServer = async () => {
+        console.log('🔗 Using Supabase as database backend');
+        const server = app.listen(PORT);
+        await server;
+        console.log(`🚀 Server running on port ${PORT} in ${NODE_ENV} mode`);
+    };
 
-startServer().catch(err => {
-    console.error('❌ Failed to start server:', err);
-    process.exit(1);
-});
+    startServer().catch(err => {
+        console.error('❌ Failed to start server:', err);
+        process.exit(1);
+    });
+}
 
 module.exports = app;
+
