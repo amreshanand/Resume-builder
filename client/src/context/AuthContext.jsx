@@ -42,9 +42,13 @@ export function AuthProvider({ children }) {
             let msg = 'Login failed';
             if (err.response?.data?.error) {
                 const errorData = err.response.data.error;
-                msg = typeof errorData === 'string' ? errorData : (errorData.message || JSON.stringify(errorData));
+                msg = typeof errorData === 'string' 
+                    ? errorData 
+                    : (errorData.message || JSON.stringify(errorData, null, 2));
             } else if (err.message) {
                 msg = err.message;
+            } else if (typeof err === 'object') {
+                msg = JSON.stringify(err, null, 2);
             }
             dispatch({ type: 'SET_ERROR', payload: msg });
             throw new Error(msg);

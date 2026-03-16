@@ -16,7 +16,9 @@ export default function LoginPage() {
             await login(email, password);
             navigate('/dashboard');
         } catch (err) {
-            const msg = typeof err === 'string' ? err : (err.message || JSON.stringify(err));
+            const msg = typeof err === 'string' 
+                ? err 
+                : (err.message || (typeof err === 'object' ? JSON.stringify(err, null, 2) : String(err)));
             setError(msg);
         }
     };
