@@ -23,7 +23,7 @@ export default function RegisterPage() {
             await register(name, email, password);
             navigate('/templates');
         } catch (err) {
-            const msg = typeof err === 'string' ? err : (err.message || JSON.stringify(err));
+            const msg = err.message || 'Registration failed';
             setError(msg);
         }
     };

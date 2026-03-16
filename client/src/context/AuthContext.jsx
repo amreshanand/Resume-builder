@@ -39,16 +39,19 @@ export function AuthProvider({ children }) {
             dispatch({ type: 'LOGIN_SUCCESS', payload: data });
             return data;
         } catch (err) {
+            console.error('Login error:', err);
             let msg = 'Login failed';
             if (err.response?.data?.error) {
                 const errorData = err.response.data.error;
                 msg = typeof errorData === 'string' 
                     ? errorData 
-                    : (errorData.message || JSON.stringify(errorData, null, 2));
+                    : (errorData.message || JSON.stringify(errorData));
+            } else if (err.response?.data?.message) {
+                msg = err.response.data.message;
             } else if (err.message) {
                 msg = err.message;
             } else if (typeof err === 'object') {
-                msg = JSON.stringify(err, null, 2);
+                msg = JSON.stringify(err);
             }
             dispatch({ type: 'SET_ERROR', payload: msg });
             throw new Error(msg);
@@ -64,10 +67,15 @@ export function AuthProvider({ children }) {
             dispatch({ type: 'LOGIN_SUCCESS', payload: data });
             return data;
         } catch (err) {
+            console.error('Registration error:', err);
             let msg = 'Registration failed';
             if (err.response?.data?.error) {
                 const errorData = err.response.data.error;
-                msg = typeof errorData === 'string' ? errorData : (errorData.message || JSON.stringify(errorData));
+                msg = typeof errorData === 'string' 
+                    ? errorData 
+                    : (errorData.message || JSON.stringify(errorData));
+            } else if (err.response?.data?.message) {
+                msg = err.response.data.message;
             } else if (err.message) {
                 msg = err.message;
             }

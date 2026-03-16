@@ -18,9 +18,7 @@ export default function LoginPage() {
             await login(email, password);
             navigate('/dashboard');
         } catch (err) {
-            const msg = typeof err === 'string' 
-                ? err 
-                : (err.message || (typeof err === 'object' ? JSON.stringify(err, null, 2) : String(err)));
+            const msg = err.message || 'An unexpected error occurred';
             setError(msg);
         }
     };

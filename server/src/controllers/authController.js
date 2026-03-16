@@ -60,6 +60,7 @@ exports.register = async (req, res, next) => {
             },
         });
     } catch (error) {
+        console.error('Registration controller error:', error);
         next(error);
     }
 };
@@ -85,14 +86,23 @@ exports.login = async (req, res, next) => {
 
         // Reset AI credits if new day
         const now = new Date();
-        const lastReset = new Date(user.ai_credits_reset_at);
+        const lastReset = user.ai_credits_reset_at ? new Date(user.ai_credits_reset_at) : new Date(0);
+        
         if (now.toDateString() !== lastReset.toDateString()) {
             const newCredits = user.plan === 'pro' ? 100 : 10;
-            await supabase
+            const { error: updateError } = await supabase
                 .from('users')
-                .update({ ai_credits: newCredits, ai_credits_reset_at: now.toISOString() })
+                .update({ 
+                    ai_credits: newCredits, 
+                    ai_credits_reset_at: now.toISOString() 
+                })
                 .eq('id', user.id);
-            user.ai_credits = newCredits;
+            
+            if (updateError) {
+                console.error('⚠️ Failed to reset AI credits:', updateError.message);
+            } else {
+                user.ai_credits = newCredits;
+            }
         }
 
         const token = generateToken(user);
@@ -112,6 +122,10 @@ exports.login = async (req, res, next) => {
             },
         });
     } catch (error) {
+        console.error('Login controller error:', error);
+        if (error.name === 'JsonWebTokenError' || error.message?.includes('secretOrPrivateKey')) {
+            return res.status(500).json({ success: false, error: 'Server configuration error (JWT_SECRET might be missing)' });
+        }
         next(error);
     }
 };

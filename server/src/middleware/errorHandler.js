@@ -2,7 +2,7 @@ const { NODE_ENV } = require('../config/env');
 
 const errorHandler = (err, req, res, next) => {
     const statusCode = err.statusCode || 500;
-    const message = err.isOperational ? err.message : 'Internal server error';
+    const message = err.message || (err.isOperational ? err.message : 'Internal server error');
 
     console.error(`❌ [${req.method}] ${req.path} — ${err.message}`);
     if (NODE_ENV === 'development') {
