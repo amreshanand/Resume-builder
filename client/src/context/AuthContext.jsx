@@ -39,7 +39,13 @@ export function AuthProvider({ children }) {
             dispatch({ type: 'LOGIN_SUCCESS', payload: data });
             return data;
         } catch (err) {
-            const msg = err.response?.data?.error || 'Login failed';
+            let msg = 'Login failed';
+            if (err.response?.data?.error) {
+                const errorData = err.response.data.error;
+                msg = typeof errorData === 'string' ? errorData : (errorData.message || JSON.stringify(errorData));
+            } else if (err.message) {
+                msg = err.message;
+            }
             dispatch({ type: 'SET_ERROR', payload: msg });
             throw new Error(msg);
         }
@@ -54,7 +60,13 @@ export function AuthProvider({ children }) {
             dispatch({ type: 'LOGIN_SUCCESS', payload: data });
             return data;
         } catch (err) {
-            const msg = err.response?.data?.error || 'Registration failed';
+            let msg = 'Registration failed';
+            if (err.response?.data?.error) {
+                const errorData = err.response.data.error;
+                msg = typeof errorData === 'string' ? errorData : (errorData.message || JSON.stringify(errorData));
+            } else if (err.message) {
+                msg = err.message;
+            }
             dispatch({ type: 'SET_ERROR', payload: msg });
             throw new Error(msg);
         }

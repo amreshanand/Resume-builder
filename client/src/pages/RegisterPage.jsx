@@ -21,7 +21,8 @@ export default function RegisterPage() {
             await register(name, email, password);
             navigate('/templates');
         } catch (err) {
-            setError(err.message);
+            const msg = typeof err === 'string' ? err : (err.message || JSON.stringify(err));
+            setError(msg);
         }
     };
 
