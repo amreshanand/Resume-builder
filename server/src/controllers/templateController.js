@@ -1,4 +1,5 @@
 const supabase = require('../config/supabase');
+const { getSystemSettings } = require('../utils/systemSettings');
 
 // Helper: generate slug from name
 function generateSlug(name) {
@@ -59,6 +60,9 @@ exports.getTemplates = async (req, res, next) => {
 // @desc    Get templates grouped by category (public)
 exports.getTemplatesByCategory = async (req, res, next) => {
     try {
+        const settings = await getSystemSettings();
+        const managedCategories = Array.isArray(settings.templateCategories) ? settings.templateCategories : [];
+
         const { data: templates, error } = await supabase
             .from('templates')
             .select('*')
@@ -67,20 +71,55 @@ exports.getTemplatesByCategory = async (req, res, next) => {
 
         if (error) throw error;
 
-        const grouped = templates.reduce((acc, template) => {
-            const t = mapTemplate(template);
-            if (!acc[t.category]) {
-                acc[t.category] = {
-                    name: getCategoryName(t.category),
-                    description: getCategoryDescription(t.category),
-                    templates: [],
-                };
-            }
-            acc[t.category].templates.push(t);
+        const mapped = (templates || []).map(mapTemplate);
+
+        // Group templates by category id
+        const templatesByCategory = mapped.reduce((acc, t) => {
+            const key = (t.category || 'other').toString();
+            if (!acc[key]) acc[key] = [];
+            acc[key].push(t);
             return acc;
         }, {});
 
-        res.json({ success: true, data: grouped });
+        // Build category list from admin-managed config first (order/visibility/icons)
+        const base = managedCategories
+            .filter((c) => c && c.id && c.visible !== false)
+            .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+            .map((c) => ({
+                id: c.id,
+                name: c.name || getCategoryName(c.id),
+                description: c.description || getCategoryDescription(c.id),
+                icon: c.icon || '📄',
+                color: c.color || 'from-slate-500 to-indigo-600',
+                order: c.order ?? 0,
+                count: (templatesByCategory[c.id] || []).length,
+                templates: templatesByCategory[c.id] || [],
+                managed: true,
+            }));
+
+        // Add discovered categories from templates table (not configured in admin)
+        const discovered = Object.keys(templatesByCategory)
+            .filter((id) => id && !managedCategories.some((c) => c?.id === id))
+            .filter((id) => id !== 'other')
+            .sort()
+            .map((id) => ({
+                id,
+                name: getCategoryName(id),
+                description: getCategoryDescription(id),
+                icon: '📄',
+                color: 'from-slate-500 to-indigo-600',
+                order: 10_000,
+                count: (templatesByCategory[id] || []).length,
+                templates: templatesByCategory[id] || [],
+                managed: false,
+            }));
+
+        res.json({
+            success: true,
+            data: {
+                categories: [...base, ...discovered],
+            },
+        });
     } catch (error) {
         next(error);
     }

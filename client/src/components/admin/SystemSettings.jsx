@@ -29,7 +29,8 @@ export default function SystemSettings() {
             toast.success('Settings saved successfully', { id });
         } catch (err) {
             console.error('Failed to update settings', err);
-            toast.error('Failed to save settings', { id });
+            const msg = err.response?.data?.error || 'Failed to save settings';
+            toast.error(msg, { id });
         }
     };
 
@@ -172,6 +173,40 @@ export default function SystemSettings() {
                             </div>
                         </div>
                         <p className="text-xs font-medium text-slate-500 mt-2 tracking-wide">Select the intelligence engine used for generating resumes.</p>
+                    </div>
+                </div>
+
+                {/* Theme */}
+                <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <h3 className="text-base font-bold text-slate-900 flex items-center gap-3 mb-6">
+                        <div className="w-8 h-8 rounded bg-violet-50 flex items-center justify-center text-violet-600 border border-violet-100">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8-9h1M3 12h1m14.364-6.364.707.707M5.636 18.364l.707-.707m12.021 0-.707-.707M6.343 6.343l-.707.707" />
+                            </svg>
+                        </div>
+                        Theme
+                    </h3>
+                    <div className="space-y-1.5">
+                        <label className="text-sm font-bold text-slate-700">Default Theme</label>
+                        <div className="relative">
+                            <select
+                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm appearance-none cursor-pointer"
+                                value={settings.defaultTheme || 'dark'}
+                                onChange={(e) => setSettings({ ...settings, defaultTheme: e.target.value })}
+                            >
+                                <option value="dark">Dark</option>
+                                <option value="light">Light</option>
+                                <option value="system">System</option>
+                            </select>
+                            <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-500">
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+                        </div>
+                        <p className="text-xs font-medium text-slate-500 mt-2">
+                            Sets the website’s default theme. Users can still override it from the navbar.
+                        </p>
                     </div>
                 </div>
 

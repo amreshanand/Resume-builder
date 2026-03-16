@@ -5,9 +5,9 @@ export default function HomePage() {
     const { user } = useAuth();
 
     return (
-        <div className="min-h-screen bg-[#020617] text-white selection:bg-indigo-500/30 overflow-x-hidden relative">
+        <div className="min-h-screen bg-[var(--surface)] text-[var(--text-primary)] selection:bg-indigo-500/30 overflow-x-hidden relative">
             {/* 3D Tech Grid Background */}
-            <div className="fixed inset-0 z-0 bg-[#020617] opacity-40">
+            <div className="fixed inset-0 z-0 bg-[var(--surface)] opacity-40">
                 <div className="tech-grid h-full w-full opacity-30" />
             </div>
 
@@ -29,12 +29,12 @@ export default function HomePage() {
                                     <span className="monospace text-[10px] font-bold tracking-[0.3em] text-indigo-300 uppercase">Neural Architecture v2.0</span>
                                 </div>
 
-                                <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-black mb-10 tracking-tight leading-[0.95] text-white">
+                                <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-black mb-10 tracking-tight leading-[0.95] text-[var(--text-primary)]">
                                     Construct <span className="gradient-text pb-4">Future-Ready</span> Resumes.
                                 </h1>
 
                                 <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-16 leading-relaxed font-light">
-                                    Step into the next dimension of career architecture. Our <span className="text-white font-medium">3D-Optimized AI</span> transforms raw experience into professional masterpieces.
+                                    Step into the next dimension of career architecture. Our <span className="text-[var(--text-primary)] font-medium">3D-Optimized AI</span> transforms raw experience into professional masterpieces.
                                 </p>
 
                                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-8">

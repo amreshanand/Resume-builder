@@ -1,134 +1,50 @@
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useResume } from '../context/ResumeContext';
+import api from '../services/api';
 
-const TEMPLATES = [
-    {
-        id: 'fresher',
-        type: 'fresher',
-        name: 'Early Career & Internships',
-        description: 'Designed for students and early professionals. Highlights academic achievements, internships, certifications, and foundational skills.',
-        icon: '🎓',
-        color: 'from-emerald-500/20 to-teal-600/20',
-        textColor: 'text-emerald-400',
-        borderColor: 'border-emerald-500/20',
-        tags: ['Students', 'Freshers', 'Entry-Level'],
-    },
-    {
-        id: 'developer',
-        type: 'developer',
-        name: 'Software & Technology',
-        description: 'Optimized for technical roles. Emphasizes coding expertise, engineering projects, problem-solving, and measurable technical impact.',
-        icon: '💻',
-        color: 'from-blue-500/20 to-indigo-600/20',
-        textColor: 'text-blue-400',
-        borderColor: 'border-blue-500/20',
-        tags: ['Developers', 'Engineers', 'Data roles'],
-    },
-    {
-        id: 'data',
-        type: 'data',
-        name: 'Data & Analytics',
-        description: 'Structured for data-driven professionals. Showcases analytical skills, machine learning models, research insights, and business impact through data.',
-        icon: '📊',
-        color: 'from-cyan-500/20 to-sky-600/20',
-        textColor: 'text-cyan-400',
-        borderColor: 'border-cyan-500/20',
-        tags: ['Data Analyst', 'Data Scientist', 'ML'],
-    },
-    {
-        id: 'business',
-        type: 'business',
-        name: 'Business & Management',
-        description: 'Tailored for business leaders and strategists. Highlights measurable achievements, team leadership, and organizational impact.',
-        icon: '💼',
-        color: 'from-purple-500/20 to-violet-600/20',
-        textColor: 'text-purple-400',
-        borderColor: 'border-purple-500/20',
-        tags: ['MBA', 'Managers', 'Consultants'],
-    },
-    {
-        id: 'finance',
-        type: 'finance',
-        name: 'Finance & Accounting',
-        description: 'Built for finance professionals. Focuses on financial analysis, compliance, auditing, and measurable fiscal impact.',
-        icon: '📈',
-        color: 'from-amber-500/20 to-orange-600/20',
-        textColor: 'text-amber-400',
-        borderColor: 'border-amber-500/20',
-        tags: ['CA', 'CFA', 'Financial roles'],
-    },
-    {
-        id: 'creative',
-        type: 'creative',
-        name: 'Design & Creative',
-        description: 'Crafted for creative professionals. Showcases portfolio projects, design thinking, and artistic achievements.',
-        icon: '🎨',
-        color: 'from-pink-500/20 to-rose-600/20',
-        textColor: 'text-pink-400',
-        borderColor: 'border-pink-500/20',
-        tags: ['UI/UX', 'Graphic', 'Creative'],
-    },
-    {
-        id: 'marketing',
-        type: 'marketing',
-        name: 'Marketing & Sales',
-        description: 'Designed for marketing and sales professionals. Highlights campaign performance, growth metrics, and revenue-driven achievements.',
-        icon: '🚀',
-        color: 'from-red-500/20 to-rose-600/20',
-        textColor: 'text-red-400',
-        borderColor: 'border-red-500/20',
-        tags: ['Digital Marketing', 'Growth', 'Sales'],
-    },
-    {
-        id: 'operations',
-        type: 'operations',
-        name: 'Operations & Supply Chain',
-        description: 'Focused on operational excellence. Emphasizes process optimization, efficiency improvements, and measurable results.',
-        icon: '⚙️',
-        color: 'from-slate-500/20 to-gray-600/20',
-        textColor: 'text-slate-400',
-        borderColor: 'border-slate-500/20',
-        tags: ['Operations', 'Logistics', 'Admin'],
-    },
-    {
-        id: 'healthcare',
-        type: 'healthcare',
-        name: 'Healthcare & Life Sciences',
-        description: 'Structured for healthcare professionals. Highlights clinical expertise, certifications, patient care experience, and research.',
-        icon: '⚕️',
-        color: 'from-teal-500/20 to-emerald-600/20',
-        textColor: 'text-teal-400',
-        borderColor: 'border-teal-500/20',
-        tags: ['Medical', 'Pharma', 'Clinical'],
-    },
-    {
-        id: 'academia',
-        type: 'academia',
-        name: 'Research & Academia',
-        description: 'Optimized for academic careers. Showcases research publications, conferences, grants, and scholarly achievements.',
-        icon: '🔬',
-        color: 'from-indigo-500/20 to-blue-600/20',
-        textColor: 'text-indigo-400',
-        borderColor: 'border-indigo-500/20',
-        tags: ['Researchers', 'Professors', 'PhD'],
-    },
-];
+const FALLBACK_STYLE = { icon: '📄', color: 'from-slate-500 to-indigo-600' };
 
 export default function TemplatesPage() {
-    const { dispatch } = useResume();
     const navigate = useNavigate();
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const handleSelect = (template) => {
-        navigate(`/templates/${template.id}`);
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            // Public route that includes admin-managed category metadata
+            const { data } = await api.get('/templates/by-category');
+            setCategories(data?.data?.categories || []);
+            setLoading(false);
+        } catch (error) {
+            console.error('Failed to load dynamic templates:', error);
+            setCategories([]);
+            setLoading(false);
+        }
     };
 
+    const handleSelect = (category) => {
+        navigate(`/templates/${category.id}`);
+    };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-[var(--surface)] flex items-center justify-center">
+                <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+            </div>
+        );
+    }
+
     return (
-        <div className="min-h-screen bg-[#020617] text-white selection:bg-indigo-500/30 overflow-x-hidden pb-40 relative pt-16">
+        <div className="min-h-screen bg-[var(--surface)] text-[var(--text-primary)] selection:bg-indigo-500/30 overflow-x-hidden pb-40 relative pt-16">
             {/* Navbar Spacer */}
             <div className="h-8 md:h-14 w-full" />
 
             {/* 3D Tech Background */}
-            <div className="fixed inset-0 z-0 bg-[#020617] pointer-events-none" />
+            <div className="fixed inset-0 z-0 bg-[var(--surface)] pointer-events-none" />
             <div className="fixed inset-0 z-0 opacity-20 pointer-events-none overflow-hidden">
                 <div className="tech-grid h-full w-full opacity-40" />
                 <div className="tech-grid-3d opacity-[0.1]" />
@@ -151,16 +67,20 @@ export default function TemplatesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
-                    {TEMPLATES.map((template, i) => (
+                    {categories.map((category, i) => {
+                        const icon = category.icon || FALLBACK_STYLE.icon;
+                        const colorBase = category.color || FALLBACK_STYLE.color;
+                        const color = `${colorBase}/20`;
+                        return (
                         <div
-                            key={template.id}
+                            key={category.id}
                             role="button"
                             tabIndex={0}
-                            onClick={() => handleSelect(template)}
+                            onClick={() => handleSelect(category)}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                     e.preventDefault();
-                                    handleSelect(template);
+                                    handleSelect(category);
                                 }
                             }}
                             className="group relative bg-[#0f172a]/40 hover:bg-[#1e293b]/60 backdrop-blur-xl border border-white/5 hover:border-white/15 rounded-2xl p-7 text-left transition-all duration-500 cursor-pointer fade-in flex flex-col shadow-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
@@ -168,13 +88,13 @@ export default function TemplatesPage() {
                         >
                             {/* Ambient Glow */}
                             <div className="absolute inset-0 overflow-hidden rounded-2xl z-0 pointer-events-none">
-                                <div className={`absolute top-0 right-0 w-48 h-48 bg-gradient-to-br ${template.color} rounded-full blur-[80px] opacity-10 group-hover:opacity-30 transition-opacity duration-500`} />
+                                <div className={`absolute top-0 right-0 w-48 h-48 bg-gradient-to-br ${color} rounded-full blur-[80px] opacity-10 group-hover:opacity-30 transition-opacity duration-500`} />
                             </div>
 
                             <div className="flex items-start justify-between mb-5 relative z-10 shrink-0">
-                                <div className={`w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br ${template.color} p-[1px] group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
+                                <div className={`w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br ${color} p-[1px] group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
                                     <div className="w-full h-full bg-[#0f172a]/90 rounded-xl flex items-center justify-center text-2xl">
-                                        {template.icon}
+                                        {icon}
                                     </div>
                                 </div>
                                 <div className="p-2.5 rounded-full bg-white/5 text-slate-400 group-hover:text-white group-hover:bg-indigo-500 transition-colors shadow-sm">
@@ -185,22 +105,27 @@ export default function TemplatesPage() {
                             </div>
 
                             <div className="relative z-10 mb-5">
-                                <h2 className="text-lg font-bold text-white mb-2 tracking-tight">{template.name}</h2>
+                                <h2 className="text-lg font-bold text-white mb-2 tracking-tight flex items-center justify-between gap-3">
+                                    <span className="truncate">{category.name}</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full shrink-0">
+                                        {category.count ?? 0}
+                                    </span>
+                                </h2>
                                 <p className="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">
-                                    {template.description}
+                                    {category.description}
                                 </p>
                             </div>
 
                             {/* Tags */}
                             <div className="flex flex-wrap gap-2 border-t border-white/5 pt-5 relative z-10 w-full shrink-0">
-                                {template.tags.map((tag) => (
+                                {(category.tags || []).slice(0, 3).map((tag) => (
                                     <span key={tag} className="text-xs px-3.5 py-1.5 rounded-full bg-white/5 border border-white/5 text-slate-300 font-medium tracking-wide uppercase shadow-sm group-hover:bg-white/10 transition-colors">
                                         {tag}
                                     </span>
                                 ))}
                             </div>
                         </div>
-                    ))}
+                    )})}
                 </div>
 
                 <div className="mt-24 text-center text-slate-500 font-medium tracking-wider text-sm uppercase opacity-70">

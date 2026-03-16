@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const supabase = require('../config/supabase');
 const { JWT_SECRET } = require('../config/env');
+const { getSystemSettings } = require('../utils/systemSettings');
 
 const generateToken = (user) => {
     return jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
@@ -10,6 +11,11 @@ const generateToken = (user) => {
 exports.register = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
+
+        const settings = await getSystemSettings();
+        if (!settings.allowRegistration) {
+            return res.status(403).json({ success: false, error: 'Registration is currently disabled.' });
+        }
 
         // Check existing user
         const { data: existing } = await supabase

@@ -10,6 +10,7 @@ import UserManager from '../components/admin/UserManager';
 import ResumeManager from '../components/admin/ResumeManager';
 import TemplateManager from '../components/admin/TemplateManager';
 import SystemSettings from '../components/admin/SystemSettings';
+import CategoryManager from '../components/admin/CategoryManager';
 
 export default function AdminPage() {
     const { user } = useAuth();
@@ -43,6 +44,7 @@ export default function AdminPage() {
         users: 'User Management',
         resumes: 'Resume Management',
         templates: 'Template Library',
+        categories: 'Category Management',
         settings: 'System Settings',
     };
 
@@ -114,6 +116,7 @@ export default function AdminPage() {
                             {activeTab === 'users' && <UserManager />}
                             {activeTab === 'resumes' && <ResumeManager />}
                             {activeTab === 'templates' && <TemplateManager />}
+                            {activeTab === 'categories' && <CategoryManager />}
                             {activeTab === 'settings' && <SystemSettings />}
                         </div>
                     </div>

@@ -1,4 +1,5 @@
 const supabase = require('../config/supabase');
+const { DEFAULT_SETTINGS } = require('../utils/systemSettings');
 
 // Get overall stats
 exports.getStats = async (req, res) => {
@@ -82,20 +83,11 @@ exports.getSettings = async (req, res) => {
             .limit(1)
             .single();
 
-        const defaultSettings = {
-            siteName: 'ResumeAI',
-            maintenanceMode: false,
-            allowRegistration: true,
-            proPlanPrice: '9.99',
-            aiModel: 'gemini-1.5-flash',
-            contactEmail: 'support@resumeai.com'
-        };
-
         if (error || !settings) {
-            return res.status(200).json({ success: true, data: defaultSettings });
+            return res.status(200).json({ success: true, data: DEFAULT_SETTINGS });
         }
 
-        res.status(200).json({ success: true, data: settings.config || defaultSettings });
+        res.status(200).json({ success: true, data: { ...DEFAULT_SETTINGS, ...(settings.config || {}) } });
     } catch (error) {
         res.status(500).json({ success: false, error: 'Server Error' });
     }
@@ -106,18 +98,26 @@ exports.updateSettings = async (req, res) => {
     try {
         const { config } = req.body;
 
+        if (!config || typeof config !== 'object') {
+            return res.status(400).json({ success: false, error: 'Invalid settings payload' });
+        }
+
         // Use insert a new record for historical purposes
         const { data, error } = await supabase
             .from('system_settings')
-            .insert({ config, created_at: new Date().toISOString() })
+            .insert({ config: { ...DEFAULT_SETTINGS, ...config }, created_at: new Date().toISOString() })
             .select('*')
             .single();
 
-        if (error) throw error;
+        if (error) {
+            console.error('Failed to update settings:', error);
+            return res.status(500).json({ success: false, error: error.message || 'Server Error' });
+        }
 
         res.status(200).json({ success: true, data: data.config });
     } catch (error) {
-        res.status(500).json({ success: false, error: 'Server Error' });
+        console.error('Failed to update settings:', error);
+        res.status(500).json({ success: false, error: error.message || 'Server Error' });
     }
 };
 
@@ -292,6 +292,102 @@ exports.deleteResume = async (req, res) => {
     try {
         const { error } = await supabase
             .from('resumes')
+            .delete()
+            .eq('id', req.params.id);
+
+        if (error) throw error;
+
+        res.status(200).json({ success: true, data: {} });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Server Error' });
+    }
+};
+
+// --- Template Management ---
+
+// Get all templates
+exports.getTemplates = async (req, res) => {
+    try {
+        const { data: templates, error } = await supabase
+            .from('templates')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        res.status(200).json({ success: true, count: templates.length, data: templates });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Server Error' });
+    }
+};
+
+// Create template
+exports.createTemplate = async (req, res) => {
+    try {
+        const { name, category, previewImage, isPremium, isActive, tags, description, sections } = req.body;
+
+        const { data: template, error } = await supabase
+            .from('templates')
+            .insert({
+                name,
+                category,
+                preview_image: previewImage,
+                is_premium: isPremium,
+                is_active: isActive,
+                tags,
+                description,
+                sections: sections || {},
+                created_at: new Date().toISOString()
+            })
+            .select('*')
+            .single();
+
+        if (error) throw error;
+
+        res.status(201).json({ success: true, data: template });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Server Error' });
+    }
+};
+
+// Update template
+exports.updateTemplate = async (req, res) => {
+    try {
+        const { name, category, previewImage, isPremium, isActive, tags, description, sections } = req.body;
+
+        const update = {
+            name,
+            category,
+            preview_image: previewImage,
+            is_premium: isPremium,
+            is_active: isActive,
+            tags,
+            description,
+            sections
+        };
+
+        const { data: template, error } = await supabase
+            .from('templates')
+            .update(update)
+            .eq('id', req.params.id)
+            .select('*')
+            .single();
+
+        if (error || !template) {
+            return res.status(404).json({ success: false, error: 'Template not found' });
+        }
+
+        res.status(200).json({ success: true, data: template });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Server Error' });
+    }
+};
+
+// Delete template
+exports.deleteTemplate = async (req, res) => {
+    try {
+        const { error } = await supabase
+            .from('templates')
             .delete()
             .eq('id', req.params.id);
 

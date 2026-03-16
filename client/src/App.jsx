@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ResumeProvider } from './context/ResumeContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 // Layout
 import Navbar from './components/layout/Navbar';
@@ -108,10 +109,12 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <ResumeProvider>
-        <AppRoutes />
-      </ResumeProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <ResumeProvider>
+          <AppRoutes />
+        </ResumeProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

@@ -1,9 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function Navbar() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const { effectiveTheme, setThemePreference } = useTheme();
 
     const handleLogout = () => {
         logout();
@@ -26,6 +28,23 @@ export default function Navbar() {
                 </Link>
 
                 <div className="flex items-center gap-8">
+                    <button
+                        onClick={() => setThemePreference(effectiveTheme === 'dark' ? 'light' : 'dark')}
+                        className="p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white transition-colors"
+                        aria-label="Toggle theme"
+                        title="Toggle theme"
+                    >
+                        {effectiveTheme === 'dark' ? (
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364-1.414 1.414M7.05 16.95l-1.414 1.414M16.95 16.95l1.414 1.414M7.05 7.05 5.636 5.636" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18a6 6 0 100-12 6 6 0 000 12z" />
+                            </svg>
+                        ) : (
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                            </svg>
+                        )}
+                    </button>
                     <Link
                         to="/templates"
                         className="text-[0.9375rem] font-medium text-slate-400 hover:text-white transition-colors"

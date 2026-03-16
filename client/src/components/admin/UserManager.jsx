@@ -5,6 +5,7 @@ export default function UserManager() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [savingUserId, setSavingUserId] = useState(null);
 
     useEffect(() => {
         fetchUsers();
@@ -21,12 +22,19 @@ export default function UserManager() {
         }
     };
 
-    const handleRoleUpdate = async (userId, newRole) => {
+    const saveUser = async (userId, patch) => {
+        setSavingUserId(userId);
         try {
-            await api.patch(`/admin/users/${userId}`, { role: newRole });
-            setUsers(users.map(u => u._id === userId ? { ...u, role: newRole } : u));
+            // Backend expects PUT /admin/users/:id with { plan, isAdmin, aiCredits }
+            const { data } = await api.put(`/admin/users/${userId}`, patch);
+            const updated = data?.data;
+            if (updated?._id) {
+                setUsers(prev => prev.map(u => (u._id === userId ? { ...u, ...updated } : u)));
+            }
         } catch (error) {
-            console.error('Failed to update role:', error);
+            console.error('Failed to update user:', error);
+        } finally {
+            setSavingUserId(null);
         }
     };
 
@@ -71,8 +79,9 @@ export default function UserManager() {
                     <thead>
                         <tr className="bg-slate-50/80 border-b border-slate-100 text-xs font-bold uppercase tracking-wider text-slate-500">
                             <th className="px-6 py-4 rounded-tl-xl">User Profile</th>
-                            <th className="px-6 py-4">Account Type</th>
-                            <th className="px-6 py-4">Current Plan</th>
+                            <th className="px-6 py-4">Admin</th>
+                            <th className="px-6 py-4">Plan</th>
+                            <th className="px-6 py-4">AI Credits</th>
                             <th className="px-6 py-4">Join Date</th>
                             <th className="px-6 py-4 text-right rounded-tr-xl">Actions</th>
                         </tr>
@@ -92,22 +101,53 @@ export default function UserManager() {
                                     </div>
                                 </td>
                                 <td className="px-6 py-3.5">
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            className="sr-only"
+                                            checked={!!user.isAdmin}
+                                            onChange={(e) => {
+                                                const isAdmin = e.target.checked;
+                                                setUsers(prev => prev.map(u => (u._id === user._id ? { ...u, isAdmin } : u)));
+                                                saveUser(user._id, { isAdmin });
+                                            }}
+                                            disabled={savingUserId === user._id}
+                                        />
+                                        <div className={`w-11 h-6 rounded-full transition-colors ${user.isAdmin ? 'bg-indigo-600' : 'bg-slate-200'} ${savingUserId === user._id ? 'opacity-60' : ''}`}></div>
+                                        <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform shadow-sm ${user.isAdmin ? 'transform translate-x-5' : ''}`}></div>
+                                    </label>
+                                </td>
+                                <td className="px-6 py-3.5">
                                     <select
-                                        value={user.role}
-                                        onChange={(e) => handleRoleUpdate(user._id, e.target.value)}
-                                        className={`text-sm font-bold bg-transparent cursor-pointer rounded-md outline-none border-none py-1 hover:bg-slate-100 -ml-2 px-2 transition-colors
-                                            ${user.role === 'admin' ? 'text-indigo-600' : 'text-slate-600'}`}
+                                        value={user.plan || 'free'}
+                                        onChange={(e) => {
+                                            const plan = e.target.value;
+                                            setUsers(prev => prev.map(u => (u._id === user._id ? { ...u, plan } : u)));
+                                            saveUser(user._id, { plan });
+                                        }}
+                                        disabled={savingUserId === user._id}
+                                        className="text-sm font-bold bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all disabled:opacity-60"
                                     >
-                                        <option value="user">User</option>
-                                        <option value="admin">Admin</option>
+                                        <option value="free">Free</option>
+                                        <option value="pro">Pro</option>
                                     </select>
                                 </td>
                                 <td className="px-6 py-3.5">
-                                    <span className={`px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider inline-block
-                                        ${user.isPro ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'}
-                                    `}>
-                                        {user.isPro ? 'Pro Member' : 'Free Basic'}
-                                    </span>
+                                    <input
+                                        type="number"
+                                        min={0}
+                                        value={user.aiCredits ?? 0}
+                                        onChange={(e) => {
+                                            const aiCredits = Number(e.target.value);
+                                            setUsers(prev => prev.map(u => (u._id === user._id ? { ...u, aiCredits } : u)));
+                                        }}
+                                        onBlur={(e) => {
+                                            const aiCredits = Number(e.target.value);
+                                            if (Number.isFinite(aiCredits)) saveUser(user._id, { aiCredits });
+                                        }}
+                                        disabled={savingUserId === user._id}
+                                        className="w-24 text-sm font-bold bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all disabled:opacity-60"
+                                    />
                                 </td>
                                 <td className="px-6 py-3.5 text-sm font-semibold text-slate-600">
                                     {new Date(user.createdAt).toLocaleDateString(undefined, {
@@ -117,10 +157,12 @@ export default function UserManager() {
                                     })}
                                 </td>
                                 <td className="px-6 py-3.5 text-right">
-                                    <button className="text-slate-400 hover:text-indigo-600 transition-colors bg-slate-50 hover:bg-indigo-50 p-2 rounded-lg border border-slate-200">
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                                        </svg>
+                                    <button
+                                        onClick={() => saveUser(user._id, { plan: user.plan, isAdmin: user.isAdmin, aiCredits: user.aiCredits })}
+                                        disabled={savingUserId === user._id}
+                                        className="text-slate-600 hover:text-indigo-600 transition-colors bg-slate-50 hover:bg-indigo-50 px-3 py-2 rounded-lg border border-slate-200 text-xs font-black uppercase tracking-wider disabled:opacity-60"
+                                    >
+                                        {savingUserId === user._id ? 'Saving…' : 'Save'}
                                     </button>
                                 </td>
                             </tr>
