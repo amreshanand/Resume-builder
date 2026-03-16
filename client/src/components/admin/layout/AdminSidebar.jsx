@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import Logo from '../../common/Logo';
+
 
 const MENU_ITEMS = [
     { id: 'dashboard', label: 'Dashboard', icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z' },
@@ -17,9 +19,8 @@ export default function AdminSidebar({ activeTab, setActiveTab }) {
             {/* Branding */}
             <div className="h-20 flex items-center px-8 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center font-black text-white text-base shadow-md">
-                        R
-                    </div>
+                    <Logo size="md" />
+
                     <div>
                         <h2 className="text-xl font-bold tracking-tight text-slate-900 leading-none">ResumeAI</h2>
                         <p className="text-xs text-slate-500 font-medium mt-1 uppercase tracking-wider">Dashboard</p>

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/common/Logo';
+
 
 export default function LoginPage() {
     const [email, setEmail] = useState('');
@@ -28,9 +30,8 @@ export default function LoginPage() {
             <div className="w-full max-w-md slide-up">
                 <div className="glass rounded-2xl p-10 border border-white/10">
                     <div className="text-center mb-10">
-                        <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-indigo-500/30">
-                            R
-                        </div>
+                        <Logo size="lg" className="mx-auto mb-6" />
+
                         <h1 className="text-3xl font-bold gradient-text mb-3">Welcome Back</h1>
                         <p className="text-base text-[var(--text-muted)]">Sign in to continue building amazing resumes</p>
                     </div>

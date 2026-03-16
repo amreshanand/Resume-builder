@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/common/Logo';
+
 
 export default function HomePage() {
     const { user } = useAuth();
@@ -223,7 +225,8 @@ export default function HomePage() {
             <footer className="relative z-30 border-t border-white/5 py-24 bg-[#020617] w-full">
                 <div className="container-custom max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-20">
                     <div className="flex items-center gap-5 group cursor-default">
-                        <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center font-black text-4xl text-white shadow-2xl shadow-indigo-500/40 group-hover:scale-110 transition-transform">R</div>
+                        <Logo size="lg" />
+
                         <span className="text-4xl font-black tracking-tighter text-white">ResumeAI</span>
                     </div>
                     <div className="flex gap-16 text-slate-500 text-[11px] uppercase tracking-[0.5em] font-black">
