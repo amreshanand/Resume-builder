@@ -1,0 +1,39 @@
+/* variables.css – design tokens and dark mode */
+:root {
+  --color-primary-h: 220;
+  --color-primary-s: 80%;
+  --color-primary-l: 55%;
+  --color-primary: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
+  --color-bg: hsl(210, 30%, 98%);
+  --color-bg-dark: hsl(210, 30%, 12%);
+  --color-surface: hsla(0, 0%, 100%, 0.85);
+  --color-surface-dark: hsla(0, 0%, 100%, 0.05);
+  --color-text: hsl(210, 10%, 15%);
+  --color-text-dark: hsl(210, 10%, 90%);
+  --radius: 0.75rem;
+  --shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --color-bg: var(--color-bg-dark);
+  --color-text: var(--color-text-dark);
+  --color-surface: var(--color-surface-dark);
+}
+
+/* Global resets and glassmorphism helper */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+.glass {
+  background: var(--color-surface);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}

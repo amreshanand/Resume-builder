@@ -10,7 +10,7 @@ export default function Logo({ size = 'md', className = '' }) {
     };
 
     return (
-        <div className={`shrink-0 flex items-center justify-center rounded-xl overflow-hidden shadow-lg shadow-indigo-500/20 ${dimensions[size]} ${className}`}>
+        <div className={`shrink-0 flex items-center justify-center rounded-xl overflow-hidden shadow-lg shadow-amber-500/20 ${dimensions[size]} ${className}`}>
             <img 
                 src="/logo.png" 
                 alt="ResumeAI Logo" 

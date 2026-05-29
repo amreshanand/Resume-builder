@@ -28,7 +28,7 @@ export default function DashboardStats() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center py-32 gap-4">
-                <div className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-amber-100 border-t-amber-600 rounded-full animate-spin" />
                 <p className="text-[15px] font-semibold text-slate-500">Loading metrics...</p>
             </div>
         );
@@ -50,7 +50,7 @@ export default function DashboardStats() {
                                 <span className="text-slate-400 font-medium text-xs">registered accounts</span>
                             </div>
                         </div>
-                        <div className="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
@@ -158,8 +158,8 @@ export default function DashboardStats() {
                     {/* User Accounts Overview */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 h-[48%] flex flex-col justify-center">
                         <div className="flex items-center gap-6">
-                            <div className="w-20 h-20 rounded-full border-[6px] border-indigo-50 relative shrink-0 flex items-center justify-center">
-                                <svg className="w-8 h-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="w-20 h-20 rounded-full border-[6px] border-amber-50 relative shrink-0 flex items-center justify-center">
+                                <svg className="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
                             </div>
@@ -221,7 +221,7 @@ export default function DashboardStats() {
                                     <td className="px-6 py-4 flex items-center gap-3">
                                         <div className={`w-8 h-8 rounded flex items-center justify-center shrink-0 ${
                                             activity.type === 'user' 
-                                            ? 'bg-indigo-50 text-indigo-500' 
+                                            ? 'bg-amber-50 text-amber-500' 
                                             : 'bg-amber-50 text-amber-500'
                                         }`}>
                                             {activity.type === 'user' ? (

@@ -37,7 +37,7 @@ export default function SystemSettings() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center py-32 gap-4">
-                <div className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-amber-100 border-t-amber-600 rounded-full animate-spin" />
                 <p className="text-[15px] font-semibold text-slate-500">Loading settings...</p>
             </div>
         );
@@ -54,7 +54,7 @@ export default function SystemSettings() {
                 </div>
                 <button 
                     onClick={handleSave} 
-                    className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] hover:-translate-y-0.5 rounded-lg text-sm font-bold tracking-wide transition-all"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.23)] hover:-translate-y-0.5 rounded-lg text-sm font-bold tracking-wide transition-all"
                 >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
@@ -67,7 +67,7 @@ export default function SystemSettings() {
                 {/* General Settings */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                     <h3 className="text-base font-bold text-slate-900 flex items-center gap-3 mb-6">
-                        <div className="w-8 h-8 rounded bg-indigo-50 flex items-center justify-center text-indigo-500 border border-indigo-100">
+                        <div className="w-8 h-8 rounded bg-amber-50 flex items-center justify-center text-amber-500 border border-amber-100">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                             </svg>
@@ -79,7 +79,7 @@ export default function SystemSettings() {
                             <label className="text-sm font-bold text-slate-700">Site Name</label>
                             <input
                                 type="text"
-                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-sm"
                                 value={settings.siteName}
                                 onChange={(e) => setSettings({ ...settings, siteName: e.target.value })}
                                 placeholder="Enter site name..."
@@ -89,7 +89,7 @@ export default function SystemSettings() {
                             <label className="text-sm font-bold text-slate-700">Contact Email</label>
                             <input
                                 type="email"
-                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-sm"
                                 value={settings.contactEmail}
                                 onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
                                 placeholder="admin@example.com"
@@ -158,7 +158,7 @@ export default function SystemSettings() {
                         <label className="text-sm font-bold text-slate-700">Primary AI Model</label>
                         <div className="relative">
                             <select
-                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-bold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm appearance-none cursor-pointer"
+                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-bold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-sm appearance-none cursor-pointer"
                                 value={settings.aiModel}
                                 onChange={(e) => setSettings({ ...settings, aiModel: e.target.value })}
                             >
@@ -179,7 +179,7 @@ export default function SystemSettings() {
                 {/* Theme */}
                 <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                     <h3 className="text-base font-bold text-slate-900 flex items-center gap-3 mb-6">
-                        <div className="w-8 h-8 rounded bg-violet-50 flex items-center justify-center text-violet-600 border border-violet-100">
+                        <div className="w-8 h-8 rounded bg-orange-50 flex items-center justify-center text-orange-600 border border-orange-100">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m8-9h1M3 12h1m14.364-6.364.707.707M5.636 18.364l.707-.707m12.021 0-.707-.707M6.343 6.343l-.707.707" />
                             </svg>
@@ -190,7 +190,7 @@ export default function SystemSettings() {
                         <label className="text-sm font-bold text-slate-700">Default Theme</label>
                         <div className="relative">
                             <select
-                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm appearance-none cursor-pointer"
+                                className="w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-900 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-sm appearance-none cursor-pointer"
                                 value={settings.defaultTheme || 'dark'}
                                 onChange={(e) => setSettings({ ...settings, defaultTheme: e.target.value })}
                             >
@@ -226,7 +226,7 @@ export default function SystemSettings() {
                             <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-bold text-slate-400">$</span>
                             <input
                                 type="text"
-                                className="w-full bg-slate-50 border border-slate-200 p-2.5 pl-8 rounded-lg text-slate-900 font-bold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                                className="w-full bg-slate-50 border border-slate-200 p-2.5 pl-8 rounded-lg text-slate-900 font-bold placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-sm"
                                 value={settings.proPlanPrice}
                                 onChange={(e) => setSettings({ ...settings, proPlanPrice: e.target.value })}
                             />

@@ -7,6 +7,13 @@ export const resumeService = {
     update: (id, data) => api.put(`/resumes/${id}`, data).then((r) => r.data),
     delete: (id) => api.delete(`/resumes/${id}`).then((r) => r.data),
     share: (id) => api.post(`/resumes/${id}/share`).then((r) => r.data),
+    upload: (file) => {
+        const formData = new FormData();
+        formData.append('resume', file);
+        return api.post('/resumes/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        }).then((r) => r.data);
+    }
 };
 
 export const authService = {

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useResume } from '../context/ResumeContext';
 import api from '../services/api';
+import Navbar from '../components/layout/Navbar';
 
 export default function TemplateSelectionPage() {
     const { categoryId } = useParams();
@@ -16,7 +17,6 @@ export default function TemplateSelectionPage() {
 
     const fetchTemplates = async () => {
         try {
-            // Public route — works for all users, and already filters to active templates by default
             const { data } = await api.get('/templates', {
                 params: { category: categoryId }
             });
@@ -31,7 +31,12 @@ export default function TemplateSelectionPage() {
     const handleSelect = (template) => {
         dispatch({
             type: 'SET_TEMPLATE',
-            payload: template.id || template._id
+            payload: {
+                id: template.id || template._id,
+                type: template.category,
+                sections: template.sections || [],
+                color: template.color || null
+            }
         });
         navigate('/builder');
     };
@@ -39,7 +44,7 @@ export default function TemplateSelectionPage() {
     if (loading) {
         return (
             <div className="min-h-screen bg-[var(--surface)] flex items-center justify-center">
-                <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
+                <div className="w-12 h-12 border-4 border-amber-500/20 border-t-amber-500 rounded-full animate-spin" />
             </div>
         );
     }
@@ -47,12 +52,14 @@ export default function TemplateSelectionPage() {
     const categoryDisplayName = categoryId?.charAt(0).toUpperCase() + categoryId?.slice(1);
 
     return (
-        <div className="min-h-screen bg-[var(--surface)] text-[var(--text-primary)] overflow-hidden">
+        <div className="min-h-screen bg-[var(--surface)] text-[var(--text-primary)] overflow-hidden transition-colors duration-300">
+            <Navbar />
+            
             {/* Premium Gradient Background */}
-            <div className="fixed inset-0 z-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-violet-950/40 via-[var(--surface)] to-indigo-950/30" />
-                <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] animate-pulse" />
-                <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/15 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-950/20 via-[var(--surface)] to-amber-950/20" />
+                <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-yellow-500/10 rounded-full blur-[120px]" />
+                <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px]" />
                 <div
                     className="absolute inset-0 opacity-[0.03]"
                     style={{
@@ -62,48 +69,48 @@ export default function TemplateSelectionPage() {
                 />
             </div>
 
-            <div className="relative z-10 pt-24 pb-20">
+            <div className="relative z-10 pt-28 pb-20">
                 <div className="max-w-[1400px] mx-auto px-6 lg:px-8">
-                    <div className="flex items-center justify-between mb-16">
+                    <div className="flex items-center justify-between mb-12">
                         <button
                             onClick={() => navigate('/templates')}
-                            className="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                            className="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:hover:bg-white/10 hover:border-slate-350 dark:hover:border-white/20 transition-all duration-300 cursor-pointer shadow-sm"
                         >
-                            <svg className="w-4 h-4 text-slate-400 group-hover:text-white group-hover:-translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 text-slate-500 group-hover:text-slate-800 dark:group-hover:text-white group-hover:-translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
-                            <span className="text-sm font-medium text-slate-400 group-hover:text-white transition-colors">Back to Categories</span>
+                            <span className="text-sm font-bold text-slate-500 group-hover:text-slate-800 dark:group-hover:text-white transition-colors">Back to Categories</span>
                         </button>
 
-                        <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-500/10 to-indigo-500/10 border border-violet-500/20">
-                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-violet-400 to-indigo-400 animate-pulse" />
-                            <span className="text-xs font-semibold tracking-widest text-violet-300 uppercase">{templates.length} Templates</span>
+                        <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-orange-500/10 to-amber-500/10 border border-orange-500/20">
+                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-orange-400 to-amber-400 animate-pulse" />
+                            <span className="text-xs font-bold tracking-widest text-orange-600 dark:text-orange-300 uppercase">{templates.length} Templates</span>
                         </div>
                     </div>
 
-                    <div className="text-center mb-20">
+                    <div className="text-center mb-16">
                         <div className="inline-flex items-center gap-3 mb-8">
-                            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/25`}>
+                            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-md`}>
                                 <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
                             </div>
-                            <div className="h-px w-12 bg-gradient-to-r from-violet-500/50 to-transparent" />
-                            <span className="text-sm font-bold tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400 uppercase">
+                            <div className="h-px w-12 bg-gradient-to-r from-orange-500/50 to-transparent" />
+                            <span className="text-sm font-bold tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500 uppercase">
                                 {categoryDisplayName}
                             </span>
                         </div>
 
-                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
-                            <span className="text-white">Choose Your </span>
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400">
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 tracking-tight text-slate-900 dark:text-white">
+                            Choose Your{' '}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500">
                                 Perfect Design
                             </span>
                         </h1>
 
-                        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
+                        <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-normal">
                             Premium templates crafted for success. Select your style and let our
-                            <span className="text-violet-400 font-medium"> AI assistant </span>
+                            <span className="text-orange-500 dark:text-orange-400 font-bold"> AI assistant </span>
                             build your resume.
                         </p>
                     </div>
@@ -112,10 +119,10 @@ export default function TemplateSelectionPage() {
                         {templates.map((template, i) => (
                             <div
                                 key={template.id || template._id}
-                                className="group relative bg-[#0f172a]/40 hover:bg-[#1e293b]/60 backdrop-blur-xl border border-white/5 hover:border-indigo-500/30 rounded-2xl overflow-hidden transition-all duration-500 flex flex-col shadow-2xl"
+                                className="group relative bg-white dark:bg-[#0f172a]/40 hover:bg-slate-50 dark:hover:bg-[#1e293b]/60 border border-slate-200 dark:border-white/5 hover:border-amber-500/30 rounded-2xl overflow-hidden transition-all duration-500 flex flex-col shadow-sm dark:shadow-2xl"
                                 style={{ animation: 'fadeInUp 0.6s ease-out forwards', animationDelay: `${i * 100}ms` }}
                             >
-                                <div className="aspect-[3/4] overflow-hidden relative group-hover:scale-[1.02] transition-transform duration-700">
+                                <div className="aspect-[3/4] overflow-hidden relative group-hover:scale-[1.01] transition-transform duration-700 bg-slate-100 dark:bg-slate-800">
                                     {template.previewImage ? (
                                         <img
                                             src={template.previewImage}
@@ -123,31 +130,31 @@ export default function TemplateSelectionPage() {
                                             className="w-full h-full object-cover object-top"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-slate-800 flex items-center justify-center text-slate-600">
-                                            No Preview
+                                        <div className="w-full h-full flex items-center justify-center text-slate-400 dark:text-slate-650 font-bold text-sm">
+                                            No Preview Available
                                         </div>
                                     )}
-                                    <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/60 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100 backdrop-blur-[2px]">
+                                    <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-950/60 transition-all duration-500 flex items-center justify-center opacity-0 group-hover:opacity-100 backdrop-blur-[2px]">
                                         <button
                                             onClick={() => handleSelect(template)}
-                                            className="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold transition-all transform hover:scale-110 active:scale-95 shadow-2xl flex items-center gap-2"
+                                            className="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl font-bold transition-all transform hover:scale-105 active:scale-95 shadow-md flex items-center gap-2 cursor-pointer"
                                         >
                                             Use Template
                                         </button>
                                     </div>
                                     {template.isPremium && (
-                                        <div className="absolute top-4 right-4 px-3 py-1.5 bg-amber-500/90 text-black text-[10px] font-black uppercase tracking-widest rounded-lg shadow-xl backdrop-blur-md">
+                                        <div className="absolute top-4 right-4 px-3 py-1.5 bg-amber-500 text-slate-950 text-[10px] font-black uppercase tracking-widest rounded-lg shadow-md">
                                             Pro Tier
                                         </div>
                                     )}
                                 </div>
 
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-white mb-2 tracking-tight group-hover:text-indigo-400 transition-colors truncate">{template.name}</h3>
-                                    <p className="text-sm text-slate-400 leading-relaxed line-clamp-2">{template.description}</p>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-amber-500 transition-colors truncate">{template.name}</h3>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">{template.description}</p>
                                     <div className="mt-5 flex flex-wrap gap-2">
                                         {(template.tags || []).slice(0, 3).map((tag, idx) => (
-                                            <span key={idx} className="px-2 py-1 text-[9px] font-black uppercase tracking-tighter rounded bg-white/5 text-slate-500">
+                                            <span key={idx} className="px-3 py-1.5 text-[9px] font-bold uppercase tracking-wider rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-white/5 shadow-sm">
                                                 {tag}
                                             </span>
                                         ))}
@@ -157,19 +164,19 @@ export default function TemplateSelectionPage() {
                         ))}
 
                         {templates.length === 0 && (
-                            <div className="col-span-full py-20 text-center bg-white/5 rounded-[2.5rem] border border-dashed border-white/10">
-                                <h3 className="text-2xl font-black text-white mb-2">No Templates Found</h3>
+                            <div className="col-span-full py-20 text-center bg-slate-50 dark:bg-white/5 rounded-[2.5rem] border border-dashed border-slate-200 dark:border-white/10">
+                                <h3 className="text-2xl font-black text-slate-800 dark:text-white mb-2">No Templates Found</h3>
                                 <p className="text-slate-500">Stay tuned for new layouts in this category.</p>
                             </div>
                         )}
                     </div>
 
-                    <div className="mt-24 text-center">
+                    <div className="mt-20 text-center">
                         <p className="text-slate-500">
                             Not finding the right fit?{' '}
                             <button
                                 onClick={() => navigate('/templates')}
-                                className="text-violet-400 hover:text-violet-300 font-medium transition-colors underline underline-offset-4"
+                                className="text-orange-500 dark:text-orange-400 hover:text-orange-600 dark:hover:text-orange-300 font-bold transition-colors underline underline-offset-4 bg-transparent border-none cursor-pointer"
                             >
                                 Explore other categories
                             </button>

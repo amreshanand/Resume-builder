@@ -255,7 +255,7 @@ exports.getResumes = async (req, res) => {
     try {
         const { data: resumes, error } = await supabase
             .from('resumes')
-            .select('id, title, template_type, status, ats_score, share_slug, created_at, user_id')
+            .select('id, title, template_type, status, ats_score, share_slug, sections, created_at, updated_at, user_id')
             .order('created_at', { ascending: false });
 
         if (error) throw error;
@@ -277,12 +277,15 @@ exports.getResumes = async (req, res) => {
             status: r.status,
             atsScore: r.ats_score,
             shareSlug: r.share_slug,
+            sections: r.sections || {},
             createdAt: r.created_at,
+            updatedAt: r.updated_at,
             userId: userMap[r.user_id] ? { name: userMap[r.user_id].name, email: userMap[r.user_id].email } : null,
         }));
 
         res.status(200).json({ success: true, count: mapped.length, data: mapped });
     } catch (error) {
+        console.error('getResumes error:', error);
         res.status(500).json({ success: false, error: 'Server Error' });
     }
 };
@@ -303,98 +306,16 @@ exports.deleteResume = async (req, res) => {
     }
 };
 
-// --- Template Management ---
+// Template management delegated to templateController.js
+// These functions are kept for compatibility if needed, but routes should ideally point to templateController
+const { 
+    getTemplates: _getTemplates, 
+    createTemplate: _createTemplate, 
+    updateTemplate: _updateTemplate, 
+    deleteTemplate: _deleteTemplate 
+} = require('./templateController');
 
-// Get all templates
-exports.getTemplates = async (req, res) => {
-    try {
-        const { data: templates, error } = await supabase
-            .from('templates')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-        if (error) throw error;
-
-        res.status(200).json({ success: true, count: templates.length, data: templates });
-    } catch (error) {
-        res.status(500).json({ success: false, error: 'Server Error' });
-    }
-};
-
-// Create template
-exports.createTemplate = async (req, res) => {
-    try {
-        const { name, category, previewImage, isPremium, isActive, tags, description, sections } = req.body;
-
-        const { data: template, error } = await supabase
-            .from('templates')
-            .insert({
-                name,
-                category,
-                preview_image: previewImage,
-                is_premium: isPremium,
-                is_active: isActive,
-                tags,
-                description,
-                sections: sections || {},
-                created_at: new Date().toISOString()
-            })
-            .select('*')
-            .single();
-
-        if (error) throw error;
-
-        res.status(201).json({ success: true, data: template });
-    } catch (error) {
-        res.status(500).json({ success: false, error: 'Server Error' });
-    }
-};
-
-// Update template
-exports.updateTemplate = async (req, res) => {
-    try {
-        const { name, category, previewImage, isPremium, isActive, tags, description, sections } = req.body;
-
-        const update = {
-            name,
-            category,
-            preview_image: previewImage,
-            is_premium: isPremium,
-            is_active: isActive,
-            tags,
-            description,
-            sections
-        };
-
-        const { data: template, error } = await supabase
-            .from('templates')
-            .update(update)
-            .eq('id', req.params.id)
-            .select('*')
-            .single();
-
-        if (error || !template) {
-            return res.status(404).json({ success: false, error: 'Template not found' });
-        }
-
-        res.status(200).json({ success: true, data: template });
-    } catch (error) {
-        res.status(500).json({ success: false, error: 'Server Error' });
-    }
-};
-
-// Delete template
-exports.deleteTemplate = async (req, res) => {
-    try {
-        const { error } = await supabase
-            .from('templates')
-            .delete()
-            .eq('id', req.params.id);
-
-        if (error) throw error;
-
-        res.status(200).json({ success: true, data: {} });
-    } catch (error) {
-        res.status(500).json({ success: false, error: 'Server Error' });
-    }
-};
+exports.getTemplates = _getTemplates;
+exports.createTemplate = _createTemplate;
+exports.updateTemplate = _updateTemplate;
+exports.deleteTemplate = _deleteTemplate;

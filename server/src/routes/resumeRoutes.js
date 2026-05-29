@@ -1,11 +1,20 @@
 const router = require('express').Router();
+const multer = require('multer');
 const { auth } = require('../middleware/auth');
 const {
-    createResume, getResumes, getResume, updateResume, deleteResume, shareResume, getPublicResume,
+    createResume, getResumes, getResume, updateResume, deleteResume, shareResume, getPublicResume, uploadAndParseResume
 } = require('../controllers/resumeController');
 
-router.use(auth); // All resume routes require auth
+// Multer configuration for memory storage
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+});
 
+// Public Routes
+router.post('/upload', upload.single('resume'), uploadAndParseResume);
+
+router.use(auth); // All other resume routes require auth
 router.post('/', createResume);
 router.get('/', getResumes);
 router.get('/:id', getResume);

@@ -7,7 +7,7 @@ const DEFAULT_CATEGORY = {
     name: '',
     description: '',
     icon: '📄',
-    color: 'from-slate-500 to-indigo-600',
+    color: 'from-slate-500 to-amber-600',
     visible: true,
     order: 0,
 };
@@ -112,7 +112,7 @@ export default function CategoryManager() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center py-32 gap-4">
-                <div className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-amber-100 border-t-amber-600 rounded-full animate-spin" />
                 <p className="text-[15px] font-semibold text-slate-500">Loading categories...</p>
             </div>
         );
@@ -248,7 +248,7 @@ export default function CategoryManager() {
                             <div className="space-y-2">
                                 <label className="text-xs font-black uppercase tracking-widest text-slate-400">Name</label>
                                 <input
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500"
                                     value={editing.name}
                                     onChange={(e) => setEditing((p) => ({ ...p, name: e.target.value }))}
                                     placeholder="Fresher & Entry-Level"
@@ -257,7 +257,7 @@ export default function CategoryManager() {
                             <div className="space-y-2">
                                 <label className="text-xs font-black uppercase tracking-widest text-slate-400">ID (slug)</label>
                                 <input
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500"
                                     value={editing.id}
                                     onChange={(e) => setEditing((p) => ({ ...p, id: e.target.value }))}
                                     placeholder="fresher"
@@ -267,7 +267,7 @@ export default function CategoryManager() {
                             <div className="space-y-2 md:col-span-2">
                                 <label className="text-xs font-black uppercase tracking-widest text-slate-400">Description</label>
                                 <textarea
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 min-h-[96px]"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 min-h-[96px]"
                                     value={editing.description}
                                     onChange={(e) => setEditing((p) => ({ ...p, description: e.target.value }))}
                                     placeholder="Perfect for students and recent graduates"
@@ -276,7 +276,7 @@ export default function CategoryManager() {
                             <div className="space-y-2">
                                 <label className="text-xs font-black uppercase tracking-widest text-slate-400">Icon (emoji)</label>
                                 <input
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500"
                                     value={editing.icon}
                                     onChange={(e) => setEditing((p) => ({ ...p, icon: e.target.value }))}
                                     placeholder="🎓"
@@ -285,7 +285,7 @@ export default function CategoryManager() {
                             <div className="space-y-2">
                                 <label className="text-xs font-black uppercase tracking-widest text-slate-400">Gradient (Tailwind)</label>
                                 <input
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500"
                                     value={editing.color}
                                     onChange={(e) => setEditing((p) => ({ ...p, color: e.target.value }))}
                                     placeholder="from-emerald-500 to-teal-600"
@@ -306,7 +306,7 @@ export default function CategoryManager() {
                                 <label className="text-xs font-black uppercase tracking-widest text-slate-400">Order</label>
                                 <input
                                     type="number"
-                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500"
+                                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-bold text-slate-900 focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500"
                                     value={editing.order ?? 0}
                                     onChange={(e) => setEditing((p) => ({ ...p, order: Number(e.target.value) }))}
                                 />
@@ -323,7 +323,7 @@ export default function CategoryManager() {
                             </button>
                             <button
                                 onClick={() => upsertCategory(editing)}
-                                className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black uppercase tracking-wider text-xs disabled:opacity-60"
+                                className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black uppercase tracking-wider text-xs disabled:opacity-60"
                                 disabled={saving}
                             >
                                 Save Category

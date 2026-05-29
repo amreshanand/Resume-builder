@@ -1,43 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
-  --primary: #6366f1;
-  --primary-light: #818cf8;
-  --primary-dark: #4f46e5;
-  --secondary: #06b6d4;
-  --secondary-light: #22d3ee;
-  --accent: #f59e0b;
-  --surface: #020617;
-  --surface-light: #0d121f;
-  --surface-lighter: #1e293b;
+  --primary: #ffd700;
+  --primary-light: #ffea70;
+  --primary-dark: #b29600;
+  --secondary: #ff8c00;
+  --secondary-light: #ffb84d;
+  --accent: #ff0055;
+  --surface: #0a0a0a;
+  --surface-light: #171717;
+  --surface-lighter: #262626;
   --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
   --danger: #ef4444;
   --success: #10b981;
-  --border: rgba(255, 255, 255, 0.06);
-  --glass-bg: rgba(15, 23, 42, 0.3);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --card-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.5);
-  --admin-accent: #818cf8;
-  --admin-surface: #0a0c10;
-  --admin-card-bg: rgba(10, 12, 16, 0.8);
-  --admin-border: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 215, 0, 0.15);
+  --glass-bg: rgba(10, 10, 10, 0.5);
+  --glass-border: rgba(255, 215, 0, 0.2);
+  --card-shadow: 0 4px 50px 0 rgba(255, 215, 0, 0.1);
+  --admin-accent: #ffd700;
+  --admin-surface: #0a0a0a;
+  --admin-card-bg: rgba(10, 10, 10, 0.8);
+  --admin-border: rgba(255, 215, 0, 0.15);
   --admin-radius: 1.5rem;
 }
 
 :root[data-theme='light'] {
-  --surface: #f8fafc;
+  --surface: #fafafa;
   --surface-light: #ffffff;
-  --surface-lighter: #f1f5f9;
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --border: rgba(15, 23, 42, 0.08);
+  --surface-lighter: #f4f4f5;
+  --text-primary: #18181b;
+  --text-secondary: #3f3f46;
+  --text-muted: #71717a;
+  --border: rgba(255, 140, 0, 0.2);
   --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(15, 23, 42, 0.08);
-  --card-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+  --glass-border: rgba(255, 140, 0, 0.2);
+  --card-shadow: 0 10px 30px rgba(255, 140, 0, 0.1);
 }
 
 
@@ -91,7 +93,7 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(255, 191, 0, 0.3);
   color: white;
 }
 
@@ -140,8 +142,8 @@ body {
   top: -50%;
   left: -50%;
   background-image:
-    linear-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(255, 191, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 191, 0, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
   transform: rotateX(60deg) translateZ(0);
   pointer-events: none;
@@ -217,7 +219,7 @@ body {
 }
 
 .text-glow {
-  text-shadow: 0 0 30px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2);
+  text-shadow: 0 0 30px rgba(255, 140, 0, 0.4), 0 0 60px rgba(255, 140, 0, 0.2);
 }
 
 .tech-border {
@@ -232,7 +234,7 @@ body {
   content: "";
   position: absolute;
   inset: -1px;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), transparent, rgba(99, 102, 241, 0.2));
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.2), transparent, rgba(255, 191, 0, 0.2));
   border-radius: inherit;
   z-index: -1;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -248,8 +250,8 @@ body {
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
-  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 30px rgba(255, 140, 0, 0.2);
+  border-color: rgba(255, 140, 0, 0.4);
 }
 
 .gradient-text {
@@ -360,11 +362,11 @@ body {
 
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px rgba(255, 191, 0, 0.3);
   }
 
   50% {
-    box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+    box-shadow: 0 0 40px rgba(255, 191, 0, 0.6);
   }
 }
 
@@ -391,7 +393,7 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 10px 25px -5px rgba(255, 191, 0, 0.5);
   filter: brightness(1.1);
 }
 
@@ -432,7 +434,7 @@ body {
 
 .input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  box-shadow: 0 0 0 3px rgba(255, 191, 0, 0.15);
   background: rgba(15, 23, 42, 1);
 }
 
@@ -455,16 +457,16 @@ body {
 }
 
 .admin-card:hover {
-  border-color: rgba(99, 102, 241, 0.3);
+  border-color: rgba(255, 191, 0, 0.3);
   transform: translateY(-2px);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(99, 102, 241, 0.08);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 191, 0, 0.08);
 }
 
 .admin-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.04), transparent 60%);
+  background: radial-gradient(circle at top right, rgba(255, 191, 0, 0.04), transparent 60%);
   pointer-events: none;
 }
 
@@ -483,9 +485,9 @@ body {
 }
 
 .admin-input:focus {
-  border-color: rgba(99, 102, 241, 0.5);
+  border-color: rgba(255, 191, 0, 0.5);
   background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 4px rgba(255, 191, 0, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .admin-input::placeholder {
@@ -501,19 +503,19 @@ body {
   font-size: 0.8125rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  border: 1px solid rgba(99, 102, 241, 0.5);
+  border: 1px solid rgba(255, 191, 0, 0.5);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  box-shadow: 0 8px 20px -6px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 8px 20px -6px rgba(255, 191, 0, 0.3);
 }
 
 .admin-button:hover {
   background: var(--primary-dark);
   transform: translateY(-1px);
-  box-shadow: 0 12px 28px -8px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 12px 28px -8px rgba(255, 191, 0, 0.5);
 }
 
 .admin-button:active {
@@ -574,11 +576,11 @@ body {
 
 /* Specific Glows */
 .glow-primary {
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 20px rgba(255, 191, 0, 0.3);
 }
 
 .glow-emerald {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
 
 .glow-rose {

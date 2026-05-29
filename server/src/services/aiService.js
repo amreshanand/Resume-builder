@@ -6,7 +6,7 @@ const buildATSPrompt = require('../prompts/atsScoring');
 const fallbackSchemas = require('../prompts/fallbackSchemas');
 
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
 // Validate form schema structure
 function validateFormSchema(schema) {

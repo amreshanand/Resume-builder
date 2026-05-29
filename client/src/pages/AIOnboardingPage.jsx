@@ -71,15 +71,15 @@ export default function AIOnboardingPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#020617] text-white flex flex-col relative overflow-hidden selection:bg-indigo-500/30">
+        <div className="min-h-screen bg-[#020617] text-white flex flex-col relative overflow-hidden selection:bg-amber-500/30">
             {/* Background Effects */}
             <div className="fixed inset-0 z-0 bg-gradient-to-br from-[#020617] via-[#0f172a] to-[#020617] pointer-events-none" />
-            <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[500px] bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
+            <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-[500px] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none" />
 
             {/* Navbar minimalist header */}
             <div className="pt-8 px-8 relative z-10 w-full flex justify-between items-center max-w-5xl mx-auto">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 p-[1px] shadow-lg shadow-indigo-500/20">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-600 p-[1px] shadow-lg shadow-amber-500/20">
                         <div className="w-full h-full bg-[#0f172a] rounded-xl flex items-center justify-center font-black text-xl text-white">
                             R
                         </div>
@@ -100,7 +100,7 @@ export default function AIOnboardingPage() {
                     <div className="flex flex-col items-center justify-center text-center fade-in">
                         <div className="relative w-32 h-32 mb-12 flex items-center justify-center">
                             <div className="absolute inset-0 rounded-full border-4 border-slate-800" />
-                            <div className="absolute inset-0 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin" />
+                            <div className="absolute inset-0 rounded-full border-4 border-amber-500 border-t-transparent animate-spin" />
                             <div className="text-4xl">✨</div>
                         </div>
                         <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tight text-white">
@@ -115,7 +115,7 @@ export default function AIOnboardingPage() {
                         {/* Progress Bar */}
                         <div className="w-full h-1.5 bg-slate-800 rounded-full mb-12 overflow-hidden">
                             <div
-                                className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 transition-all duration-500"
+                                className="h-full bg-gradient-to-r from-amber-500 to-yellow-500 transition-all duration-500"
                                 style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
                             />
                         </div>
@@ -141,7 +141,7 @@ export default function AIOnboardingPage() {
                                         if (e.key === 'Enter' && e.ctrlKey) handleNext();
                                     }}
                                     placeholder={currentQuestion.placeholder}
-                                    className="w-full h-48 bg-[#0f172a]/80 border border-slate-700 hover:border-slate-500 focus:border-indigo-500 rounded-2xl p-6 text-white text-lg placeholder:text-slate-600 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 transition-all resize-none shadow-inner"
+                                    className="w-full h-48 bg-[#0f172a]/80 border border-slate-700 hover:border-slate-500 focus:border-amber-500 rounded-2xl p-6 text-white text-lg placeholder:text-slate-600 focus:outline-none focus:ring-4 focus:ring-amber-500/10 transition-all resize-none shadow-inner"
                                 />
                             ) : (
                                 <input
@@ -153,7 +153,7 @@ export default function AIOnboardingPage() {
                                         if (e.key === 'Enter') handleNext();
                                     }}
                                     placeholder={currentQuestion.placeholder}
-                                    className="w-full bg-[#0f172a]/80 border border-slate-700 hover:border-slate-500 focus:border-indigo-500 rounded-2xl p-6 text-white text-xl placeholder:text-slate-600 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 transition-all shadow-inner"
+                                    className="w-full bg-[#0f172a]/80 border border-slate-700 hover:border-slate-500 focus:border-amber-500 rounded-2xl p-6 text-white text-xl placeholder:text-slate-600 focus:outline-none focus:ring-4 focus:ring-amber-500/10 transition-all shadow-inner"
                                 />
                             )}
                         </div>
@@ -170,7 +170,7 @@ export default function AIOnboardingPage() {
                             <button
                                 onClick={handleNext}
                                 disabled={!answers[currentQuestion.id]}
-                                className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 disabled:hover:bg-indigo-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] px-8 py-4 rounded-full font-bold tracking-wide transition-all duration-300 flex items-center gap-3 disabled:cursor-not-allowed transform hover:-translate-y-1 active:translate-y-0"
+                                className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 disabled:hover:bg-amber-600 text-white shadow-[0_0_20px_rgba(255, 191, 0,0.3)] hover:shadow-[0_0_30px_rgba(255, 191, 0,0.5)] px-8 py-4 rounded-full font-bold tracking-wide transition-all duration-300 flex items-center gap-3 disabled:cursor-not-allowed transform hover:-translate-y-1 active:translate-y-0"
                             >
                                 {currentStep === questions.length - 1 ? 'Generate Resume ✨' : 'Continue →'}
                             </button>

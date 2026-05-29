@@ -29,7 +29,7 @@ export default function ChipsInput({ values = [], onChange, suggestions = [], pl
 
     return (
         <div>
-            <div className="flex flex-wrap items-center gap-2 p-2 rounded-lg border border-[var(--border)] bg-[var(--surface-light)] min-h-[42px] focus-within:border-[var(--primary)] focus-within:shadow-[0_0_0_3px_rgba(99,102,241,0.15)] transition-all">
+            <div className="flex flex-wrap items-center gap-2 p-2 rounded-lg border border-[var(--border)] bg-[var(--surface-light)] min-h-[42px] focus-within:border-[var(--primary)] focus-within:shadow-[0_0_0_3px_rgba(255, 191, 0,0.15)] transition-all">
                 {values.map((chip, i) => (
                     <span key={i} className="inline-flex items-center gap-1 bg-[var(--primary)]/20 text-[var(--primary-light)] text-xs font-medium px-2.5 py-1 rounded-full">
                         {chip}

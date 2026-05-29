@@ -131,7 +131,7 @@ export default function FormField({ field, value, onChange }) {
                             onClick={handleImproveWithAI}
                             disabled={isImproving || !value}
                             className={`flex items-center gap-1.5 text-xs font-medium px-2 py-1 rounded-md transition-colors 
-                                ${!value ? 'text-[var(--text-muted)] cursor-not-allowed' : 'text-purple-400 hover:text-purple-300 hover:bg-purple-400/10'}`}
+                                ${!value ? 'text-[var(--text-muted)] cursor-not-allowed' : 'text-yellow-400 hover:text-yellow-300 hover:bg-yellow-400/10'}`}
                         >
                             {isImproving ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
                             {isImproving ? 'Improving...' : 'Improve with AI'}

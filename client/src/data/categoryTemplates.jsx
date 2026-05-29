@@ -282,11 +282,11 @@ export const DeveloperTerminalPreview = () => (
             <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
         </div>
         <div className="text-[8px] text-green-400 mb-1 opacity-70">$ whoami</div>
-        <div className="w-1/2 h-3 bg-cyan-400 rounded mb-3" />
+        <div className="w-1/2 h-3 bg-orange-400 rounded mb-3" />
         <div className="text-[8px] text-green-400 mb-1 opacity-70">$ cat skills.json</div>
         <div className="flex gap-1.5 flex-wrap mb-3">
-            <div className="px-2 py-1 bg-purple-500/30 border border-purple-500 rounded text-[6px] text-purple-400">React</div>
-            <div className="px-2 py-1 bg-blue-500/30 border border-blue-500 rounded text-[6px] text-blue-400">Node.js</div>
+            <div className="px-2 py-1 bg-yellow-500/30 border border-yellow-500 rounded text-[6px] text-yellow-400">React</div>
+            <div className="px-2 py-1 bg-yellow-500/30 border border-yellow-500 rounded text-[6px] text-yellow-400">Node.js</div>
             <div className="px-2 py-1 bg-green-500/30 border border-green-500 rounded text-[6px] text-green-400">Python</div>
         </div>
         <div className="text-[8px] text-green-400 mb-1 opacity-70">$ ls projects/</div>
@@ -300,10 +300,10 @@ export const DeveloperTerminalPreview = () => (
 
 export const DeveloperCleanPreview = () => (
     <div className="w-full h-full bg-white p-4 flex flex-col pointer-events-none">
-        <div className="flex justify-between items-start mb-3 pb-3 border-b-2 border-blue-600">
+        <div className="flex justify-between items-start mb-3 pb-3 border-b-2 border-yellow-600">
             <div>
                 <div className="w-24 h-3.5 bg-gray-900 rounded mb-1" />
-                <div className="w-16 h-2 bg-blue-600 rounded" />
+                <div className="w-16 h-2 bg-yellow-600 rounded" />
             </div>
             <div className="flex gap-1.5">
                 <div className="w-4 h-4 rounded bg-gray-100" />
@@ -311,16 +311,16 @@ export const DeveloperCleanPreview = () => (
             </div>
         </div>
         <div className="mb-3">
-            <div className="w-1/4 h-2.5 bg-blue-600 rounded mb-2" />
+            <div className="w-1/4 h-2.5 bg-yellow-600 rounded mb-2" />
             <div className="flex gap-1.5 flex-wrap">
-                <div className="px-2 py-1 bg-blue-100 rounded w-8 h-2.5" />
-                <div className="px-2 py-1 bg-blue-100 rounded w-10 h-2.5" />
-                <div className="px-2 py-1 bg-blue-100 rounded w-7 h-2.5" />
-                <div className="px-2 py-1 bg-blue-100 rounded w-9 h-2.5" />
+                <div className="px-2 py-1 bg-yellow-100 rounded w-8 h-2.5" />
+                <div className="px-2 py-1 bg-yellow-100 rounded w-10 h-2.5" />
+                <div className="px-2 py-1 bg-yellow-100 rounded w-7 h-2.5" />
+                <div className="px-2 py-1 bg-yellow-100 rounded w-9 h-2.5" />
             </div>
         </div>
         <div>
-            <div className="w-1/4 h-2.5 bg-blue-600 rounded mb-2" />
+            <div className="w-1/4 h-2.5 bg-yellow-600 rounded mb-2" />
             <div className="space-y-1">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-5/6 h-1.5 bg-gray-200 rounded" />
@@ -358,7 +358,7 @@ export const DeveloperGitHubPreview = () => (
 
 export const DeveloperModernPreview = () => (
     <div className="w-full h-full bg-white flex pointer-events-none overflow-hidden">
-        <div className="w-2/5 bg-indigo-600 h-full p-3 flex flex-col">
+        <div className="w-2/5 bg-amber-600 h-full p-3 flex flex-col">
             <div className="w-12 h-12 rounded-full bg-white/20 mb-3 mx-auto" />
             <div className="w-full h-2 bg-white/80 rounded mb-1" />
             <div className="w-3/4 h-1.5 bg-white/50 rounded mb-4 mx-auto" />
@@ -371,12 +371,12 @@ export const DeveloperModernPreview = () => (
             </div>
         </div>
         <div className="w-3/5 p-3">
-            <div className="w-1/3 h-2.5 bg-indigo-600 rounded mb-2" />
+            <div className="w-1/3 h-2.5 bg-amber-600 rounded mb-2" />
             <div className="space-y-1 mb-3">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-5/6 h-1.5 bg-gray-200 rounded" />
             </div>
-            <div className="w-1/3 h-2.5 bg-indigo-600 rounded mb-2" />
+            <div className="w-1/3 h-2.5 bg-amber-600 rounded mb-2" />
             <div className="space-y-1">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-4/5 h-1.5 bg-gray-200 rounded" />
@@ -389,7 +389,7 @@ export const DeveloperMinimalPreview = () => (
     <div className="w-full h-full bg-gray-50 p-4 flex flex-col pointer-events-none">
         <div className="mb-4">
             <div className="w-1/2 h-4 bg-gray-900 rounded mb-2" />
-            <div className="w-1/3 h-2 bg-indigo-500 rounded" />
+            <div className="w-1/3 h-2 bg-amber-500 rounded" />
         </div>
         <div className="flex gap-4">
             <div className="flex-1">
@@ -420,23 +420,23 @@ export const DeveloperMinimalPreview = () => (
 export const DataAnalyticsPreview = () => (
     <div className="w-full h-full bg-white p-4 flex flex-col pointer-events-none">
         <div className="text-center mb-3">
-            <div className="w-1/2 mx-auto h-3.5 bg-cyan-700 rounded mb-2" />
+            <div className="w-1/2 mx-auto h-3.5 bg-orange-700 rounded mb-2" />
             <div className="w-2/3 mx-auto h-2 bg-gray-400 rounded" />
         </div>
         <div className="flex gap-2 mb-3">
-            <div className="flex-1 bg-cyan-50 rounded p-2">
+            <div className="flex-1 bg-orange-50 rounded p-2">
                 <div className="w-full h-8 flex items-end gap-1">
-                    <div className="flex-1 h-3 bg-cyan-300 rounded-t" />
-                    <div className="flex-1 h-5 bg-cyan-400 rounded-t" />
-                    <div className="flex-1 h-4 bg-cyan-500 rounded-t" />
-                    <div className="flex-1 h-6 bg-cyan-600 rounded-t" />
+                    <div className="flex-1 h-3 bg-orange-300 rounded-t" />
+                    <div className="flex-1 h-5 bg-orange-400 rounded-t" />
+                    <div className="flex-1 h-4 bg-orange-500 rounded-t" />
+                    <div className="flex-1 h-6 bg-orange-600 rounded-t" />
                 </div>
             </div>
-            <div className="flex-1 bg-cyan-50 rounded p-2 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full border-4 border-cyan-500 border-r-transparent" />
+            <div className="flex-1 bg-orange-50 rounded p-2 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full border-4 border-orange-500 border-r-transparent" />
             </div>
         </div>
-        <div className="w-1/4 h-2.5 bg-cyan-600 rounded mb-2" />
+        <div className="w-1/4 h-2.5 bg-orange-600 rounded mb-2" />
         <div className="space-y-1">
             <div className="w-full h-1.5 bg-gray-200 rounded" />
             <div className="w-5/6 h-1.5 bg-gray-200 rounded" />
@@ -447,27 +447,27 @@ export const DataAnalyticsPreview = () => (
 export const DataScientistPreview = () => (
     <div className="w-full h-full bg-[#1e1e2f] p-3 flex flex-col pointer-events-none">
         <div className="flex items-center gap-2 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500" />
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-400 to-yellow-500" />
             <div>
                 <div className="w-20 h-3 bg-white rounded mb-1" />
-                <div className="w-14 h-2 bg-cyan-400 rounded" />
+                <div className="w-14 h-2 bg-orange-400 rounded" />
             </div>
         </div>
         <div className="grid grid-cols-3 gap-2 mb-3">
             <div className="bg-slate-800 rounded p-2 text-center">
-                <div className="w-5 h-5 mx-auto mb-1 text-cyan-400 text-[8px]">📊</div>
+                <div className="w-5 h-5 mx-auto mb-1 text-orange-400 text-[8px]">📊</div>
                 <div className="w-full h-1 bg-slate-600 rounded" />
             </div>
             <div className="bg-slate-800 rounded p-2 text-center">
-                <div className="w-5 h-5 mx-auto mb-1 text-cyan-400 text-[8px]">🤖</div>
+                <div className="w-5 h-5 mx-auto mb-1 text-orange-400 text-[8px]">🤖</div>
                 <div className="w-full h-1 bg-slate-600 rounded" />
             </div>
             <div className="bg-slate-800 rounded p-2 text-center">
-                <div className="w-5 h-5 mx-auto mb-1 text-cyan-400 text-[8px]">📈</div>
+                <div className="w-5 h-5 mx-auto mb-1 text-orange-400 text-[8px]">📈</div>
                 <div className="w-full h-1 bg-slate-600 rounded" />
             </div>
         </div>
-        <div className="w-1/3 h-2.5 bg-cyan-400 rounded mb-2" />
+        <div className="w-1/3 h-2.5 bg-orange-400 rounded mb-2" />
         <div className="space-y-1">
             <div className="w-full h-1.5 bg-slate-700 rounded" />
             <div className="w-4/5 h-1.5 bg-slate-700 rounded" />
@@ -533,29 +533,29 @@ export const DataClassicPreview = () => (
 );
 
 export const DataInfographicPreview = () => (
-    <div className="w-full h-full bg-gradient-to-br from-slate-50 to-cyan-50 p-3 flex flex-col pointer-events-none">
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 to-orange-50 p-3 flex flex-col pointer-events-none">
         <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center text-white text-xs">📊</div>
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-sky-600 flex items-center justify-center text-white text-xs">📊</div>
             <div>
                 <div className="w-20 h-3 bg-gray-800 rounded mb-1" />
-                <div className="w-14 h-2 bg-cyan-600 rounded" />
+                <div className="w-14 h-2 bg-orange-600 rounded" />
             </div>
         </div>
         <div className="flex gap-2 mb-3">
             <div className="flex-1 bg-white rounded-lg p-2 shadow-sm text-center">
-                <div className="text-[10px] text-cyan-600 font-bold mb-1">5+</div>
+                <div className="text-[10px] text-orange-600 font-bold mb-1">5+</div>
                 <div className="w-full h-1 bg-gray-200 rounded" />
             </div>
             <div className="flex-1 bg-white rounded-lg p-2 shadow-sm text-center">
-                <div className="text-[10px] text-cyan-600 font-bold mb-1">10</div>
+                <div className="text-[10px] text-orange-600 font-bold mb-1">10</div>
                 <div className="w-full h-1 bg-gray-200 rounded" />
             </div>
             <div className="flex-1 bg-white rounded-lg p-2 shadow-sm text-center">
-                <div className="text-[10px] text-cyan-600 font-bold mb-1">3</div>
+                <div className="text-[10px] text-orange-600 font-bold mb-1">3</div>
                 <div className="w-full h-1 bg-gray-200 rounded" />
             </div>
         </div>
-        <div className="w-1/3 h-2.5 bg-cyan-600 rounded mb-2" />
+        <div className="w-1/3 h-2.5 bg-orange-600 rounded mb-2" />
         <div className="space-y-1">
             <div className="w-full h-1.5 bg-white rounded" />
             <div className="w-4/5 h-1.5 bg-white rounded" />
@@ -595,7 +595,7 @@ export const BusinessExecutivePreview = () => (
 
 export const BusinessModernPreview = () => (
     <div className="w-full h-full bg-white flex pointer-events-none overflow-hidden">
-        <div className="w-2/5 bg-purple-700 h-full p-3 flex flex-col">
+        <div className="w-2/5 bg-yellow-700 h-full p-3 flex flex-col">
             <div className="w-12 h-12 rounded-full bg-white/20 mb-3 mx-auto" />
             <div className="w-full h-2 bg-white/60 rounded mb-1" />
             <div className="w-3/4 h-1.5 bg-white/40 rounded mb-4 mx-auto" />
@@ -606,12 +606,12 @@ export const BusinessModernPreview = () => (
             </div>
         </div>
         <div className="w-3/5 p-3">
-            <div className="w-1/3 h-2.5 bg-purple-700 rounded mb-2" />
+            <div className="w-1/3 h-2.5 bg-yellow-700 rounded mb-2" />
             <div className="space-y-1 mb-3">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-5/6 h-1.5 bg-gray-200 rounded" />
             </div>
-            <div className="w-1/3 h-2.5 bg-purple-700 rounded mb-2" />
+            <div className="w-1/3 h-2.5 bg-yellow-700 rounded mb-2" />
             <div className="space-y-1">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-4/5 h-1.5 bg-gray-200 rounded" />
@@ -647,7 +647,7 @@ export const BusinessMinimalPreview = () => (
     <div className="w-full h-full bg-gray-50 p-4 flex flex-col pointer-events-none">
         <div className="mb-4">
             <div className="w-2/3 h-4 bg-gray-900 rounded mb-2" />
-            <div className="w-1/3 h-2 bg-purple-600 rounded" />
+            <div className="w-1/3 h-2 bg-yellow-600 rounded" />
         </div>
         <div className="mb-3">
             <div className="w-1/4 h-2.5 bg-gray-800 rounded mb-2" />
@@ -668,21 +668,21 @@ export const BusinessMinimalPreview = () => (
 
 export const BusinessConsultantPreview = () => (
     <div className="w-full h-full bg-white p-3 flex flex-col pointer-events-none">
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-3 rounded-lg mb-3 text-center">
+        <div className="bg-gradient-to-r from-yellow-600 to-amber-600 p-3 rounded-lg mb-3 text-center">
             <div className="w-1/2 mx-auto h-3 bg-white rounded mb-1" />
             <div className="w-1/3 mx-auto h-1.5 bg-white/60 rounded" />
         </div>
         <div className="flex gap-3 mb-3">
-            <div className="flex-1 border border-purple-200 rounded-lg p-2">
-                <div className="w-1/2 h-2 bg-purple-600 rounded mb-1" />
+            <div className="flex-1 border border-yellow-200 rounded-lg p-2">
+                <div className="w-1/2 h-2 bg-yellow-600 rounded mb-1" />
                 <div className="w-full h-1 bg-gray-200 rounded" />
             </div>
-            <div className="flex-1 border border-purple-200 rounded-lg p-2">
-                <div className="w-1/2 h-2 bg-purple-600 rounded mb-1" />
+            <div className="flex-1 border border-yellow-200 rounded-lg p-2">
+                <div className="w-1/2 h-2 bg-yellow-600 rounded mb-1" />
                 <div className="w-full h-1 bg-gray-200 rounded" />
             </div>
         </div>
-        <div className="w-1/4 h-2.5 bg-purple-600 rounded mb-2" />
+        <div className="w-1/4 h-2.5 bg-yellow-600 rounded mb-2" />
         <div className="space-y-1">
             <div className="w-full h-1.5 bg-gray-200 rounded" />
             <div className="w-4/5 h-1.5 bg-gray-200 rounded" />
@@ -879,7 +879,7 @@ export const CreativeMinimalPreview = () => (
 export const CreativeBoldPreview = () => (
     <div className="w-full h-full bg-slate-900 p-4 flex flex-col pointer-events-none">
         <div className="mb-3">
-            <div className="w-3/4 h-5 bg-gradient-to-r from-fuchsia-500 to-purple-600 rounded mb-2" />
+            <div className="w-3/4 h-5 bg-gradient-to-r from-fuchsia-500 to-yellow-600 rounded mb-2" />
             <div className="w-1/2 h-2 bg-slate-500 rounded" />
         </div>
         <div className="grid grid-cols-2 gap-3 mb-3">
@@ -888,7 +888,7 @@ export const CreativeBoldPreview = () => (
         </div>
         <div className="flex gap-1.5 flex-wrap">
             <div className="h-2.5 px-2 bg-fuchsia-500/20 border border-fuchsia-500/40 rounded-full" style={{ width: '3rem' }} />
-            <div className="h-2.5 px-2 bg-purple-500/20 border border-purple-500/40 rounded-full" style={{ width: '3.5rem' }} />
+            <div className="h-2.5 px-2 bg-yellow-500/20 border border-yellow-500/40 rounded-full" style={{ width: '3.5rem' }} />
             <div className="h-2.5 px-2 bg-pink-500/20 border border-pink-500/40 rounded-full" style={{ width: '2.5rem' }} />
         </div>
     </div>
@@ -1348,7 +1348,7 @@ export const HealthcarePharmaPreview = () => (
 
 export const AcademiaModernPreview = () => (
     <div className="w-full h-full bg-white flex pointer-events-none overflow-hidden">
-        <div className="w-2/5 bg-indigo-700 h-full p-3 flex flex-col">
+        <div className="w-2/5 bg-amber-700 h-full p-3 flex flex-col">
             <div className="w-12 h-12 rounded-full bg-white/20 mb-3 mx-auto" />
             <div className="w-full h-2 bg-white/60 rounded mb-1" />
             <div className="w-3/4 h-1.5 bg-white/40 rounded mb-4 mx-auto" />
@@ -1359,12 +1359,12 @@ export const AcademiaModernPreview = () => (
             </div>
         </div>
         <div className="w-3/5 p-3">
-            <div className="w-1/3 h-2.5 bg-indigo-700 rounded mb-2" />
+            <div className="w-1/3 h-2.5 bg-amber-700 rounded mb-2" />
             <div className="space-y-1 mb-3">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-5/6 h-1.5 bg-gray-200 rounded" />
             </div>
-            <div className="w-1/3 h-2.5 bg-indigo-700 rounded mb-2" />
+            <div className="w-1/3 h-2.5 bg-amber-700 rounded mb-2" />
             <div className="space-y-1">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-4/5 h-1.5 bg-gray-200 rounded" />
@@ -1375,7 +1375,7 @@ export const AcademiaModernPreview = () => (
 
 export const AcademiaClassicPreview = () => (
     <div className="w-full h-full bg-white p-4 flex flex-col pointer-events-none">
-        <div className="border-b-2 border-indigo-800 pb-3 mb-3">
+        <div className="border-b-2 border-amber-800 pb-3 mb-3">
             <div className="w-1/2 h-3.5 bg-gray-900 rounded mb-2" />
             <div className="flex gap-2">
                 <div className="w-14 h-1.5 bg-gray-400 rounded" />
@@ -1383,14 +1383,14 @@ export const AcademiaClassicPreview = () => (
             </div>
         </div>
         <div className="mb-3">
-            <div className="w-1/4 h-2.5 bg-indigo-800 rounded mb-2" />
+            <div className="w-1/4 h-2.5 bg-amber-800 rounded mb-2" />
             <div className="space-y-1">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-11/12 h-1.5 bg-gray-200 rounded" />
             </div>
         </div>
         <div>
-            <div className="w-1/5 h-2.5 bg-indigo-800 rounded mb-2" />
+            <div className="w-1/5 h-2.5 bg-amber-800 rounded mb-2" />
             <div className="space-y-1">
                 <div className="w-full h-1.5 bg-gray-200 rounded" />
                 <div className="w-4/5 h-1.5 bg-gray-200 rounded" />
@@ -1400,23 +1400,23 @@ export const AcademiaClassicPreview = () => (
 );
 
 export const AcademiaResearchPreview = () => (
-    <div className="w-full h-full bg-gradient-to-br from-indigo-50 to-blue-50 p-4 flex flex-col pointer-events-none">
+    <div className="w-full h-full bg-gradient-to-br from-amber-50 to-yellow-50 p-4 flex flex-col pointer-events-none">
         <div className="flex items-center gap-3 mb-3">
-            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-700 flex-shrink-0" />
+            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-amber-600 to-yellow-700 flex-shrink-0" />
             <div>
                 <div className="w-24 h-3 bg-gray-800 rounded mb-1" />
-                <div className="w-16 h-2 bg-indigo-600 rounded" />
+                <div className="w-16 h-2 bg-amber-600 rounded" />
             </div>
         </div>
         <div className="mb-3">
-            <div className="w-1/4 h-2.5 bg-indigo-700 rounded mb-2" />
+            <div className="w-1/4 h-2.5 bg-amber-700 rounded mb-2" />
             <div className="space-y-1">
                 <div className="w-full h-1.5 bg-white rounded" />
                 <div className="w-5/6 h-1.5 bg-white rounded" />
             </div>
         </div>
         <div>
-            <div className="w-1/4 h-2.5 bg-indigo-700 rounded mb-2" />
+            <div className="w-1/4 h-2.5 bg-amber-700 rounded mb-2" />
             <div className="flex gap-1.5 flex-wrap">
                 <div className="h-2.5 w-10 bg-white rounded-full" />
                 <div className="h-2.5 w-12 bg-white rounded-full" />
@@ -1430,7 +1430,7 @@ export const AcademiaMinimalPreview = () => (
     <div className="w-full h-full bg-gray-50 p-4 flex flex-col pointer-events-none">
         <div className="mb-4">
             <div className="w-1/2 h-4 bg-gray-900 rounded mb-2" />
-            <div className="w-1/3 h-2 bg-indigo-600 rounded" />
+            <div className="w-1/3 h-2 bg-amber-600 rounded" />
         </div>
         <div className="mb-3">
             <div className="w-1/4 h-2.5 bg-gray-800 rounded mb-2" />
@@ -1451,21 +1451,21 @@ export const AcademiaMinimalPreview = () => (
 
 export const AcademiaPublicationsPreview = () => (
     <div className="w-full h-full bg-white p-4 flex flex-col pointer-events-none">
-        <div className="text-center mb-3 pb-3 border-b border-indigo-200">
-            <div className="w-2/3 mx-auto h-4 bg-indigo-800 rounded mb-2" />
-            <div className="w-1/2 mx-auto h-1.5 bg-indigo-500 rounded" />
+        <div className="text-center mb-3 pb-3 border-b border-amber-200">
+            <div className="w-2/3 mx-auto h-4 bg-amber-800 rounded mb-2" />
+            <div className="w-1/2 mx-auto h-1.5 bg-amber-500 rounded" />
         </div>
         <div className="flex gap-3 mb-3">
-            <div className="flex-1 bg-indigo-50 rounded-lg p-2 text-center">
-                <div className="text-[10px] text-indigo-700 font-bold mb-1">25</div>
-                <div className="w-full h-1 bg-indigo-200 rounded" />
+            <div className="flex-1 bg-amber-50 rounded-lg p-2 text-center">
+                <div className="text-[10px] text-amber-700 font-bold mb-1">25</div>
+                <div className="w-full h-1 bg-amber-200 rounded" />
             </div>
-            <div className="flex-1 bg-indigo-50 rounded-lg p-2 text-center">
-                <div className="text-[10px] text-indigo-700 font-bold mb-1">500+</div>
-                <div className="w-full h-1 bg-indigo-200 rounded" />
+            <div className="flex-1 bg-amber-50 rounded-lg p-2 text-center">
+                <div className="text-[10px] text-amber-700 font-bold mb-1">500+</div>
+                <div className="w-full h-1 bg-amber-200 rounded" />
             </div>
         </div>
-        <div className="w-1/4 h-2.5 bg-indigo-700 rounded mb-2" />
+        <div className="w-1/4 h-2.5 bg-amber-700 rounded mb-2" />
         <div className="space-y-1">
             <div className="w-full h-1.5 bg-gray-200 rounded" />
             <div className="w-5/6 h-1.5 bg-gray-200 rounded" />
@@ -1495,7 +1495,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Fresh Start Modern',
                 description: 'Sidebar layout highlighting skills. Great for showcasing tech abilities.',
                 PreviewComponent: FresherModernPreview,
-                color: 'from-teal-500 to-cyan-600',
+                color: 'from-teal-500 to-orange-600',
                 sections: ['personalInfo', 'summary', 'skills', 'education', 'projects', 'internships']
             },
             {
@@ -1533,7 +1533,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Dev Terminal',
                 description: 'Terminal-inspired design with code aesthetic. Perfect for developers.',
                 PreviewComponent: DeveloperTerminalPreview,
-                color: 'from-green-500 to-cyan-600',
+                color: 'from-green-500 to-orange-600',
                 sections: ['personalInfo', 'summary', 'skills', 'experience', 'projects', 'education']
             },
             {
@@ -1541,7 +1541,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Tech Professional',
                 description: 'Clean layout with skill badges. Great for enterprise roles.',
                 PreviewComponent: DeveloperCleanPreview,
-                color: 'from-blue-500 to-indigo-600',
+                color: 'from-yellow-500 to-amber-600',
                 sections: ['personalInfo', 'summary', 'skills', 'experience', 'projects', 'education']
             },
             {
@@ -1557,7 +1557,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Modern Developer',
                 description: 'Two-column modern layout. Balance aesthetics and content.',
                 PreviewComponent: DeveloperModernPreview,
-                color: 'from-indigo-500 to-purple-600',
+                color: 'from-amber-500 to-yellow-600',
                 sections: ['personalInfo', 'summary', 'experience', 'skills', 'projects', 'education']
             },
             {
@@ -1565,7 +1565,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Code Minimal',
                 description: 'Distraction-free minimal design. Content-focused and ATS-friendly.',
                 PreviewComponent: DeveloperMinimalPreview,
-                color: 'from-gray-600 to-indigo-700',
+                color: 'from-gray-600 to-amber-700',
                 sections: ['personalInfo', 'summary', 'experience', 'skills', 'education']
             }
         ]
@@ -1579,7 +1579,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Analytics Pro',
                 description: 'Clean design with data visualization elements. Best for analysts.',
                 PreviewComponent: DataAnalyticsPreview,
-                color: 'from-cyan-500 to-sky-600',
+                color: 'from-orange-500 to-sky-600',
                 sections: ['personalInfo', 'summary', 'experience', 'skills', 'projects', 'education']
             },
             {
@@ -1587,7 +1587,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Data Scientist',
                 description: 'Dark theme with metric cards. Great for ML/AI professionals.',
                 PreviewComponent: DataScientistPreview,
-                color: 'from-blue-600 to-cyan-700',
+                color: 'from-yellow-600 to-orange-700',
                 sections: ['personalInfo', 'summary', 'skills', 'experience', 'projects', 'publications']
             },
             {
@@ -1595,7 +1595,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Modern Analyst',
                 description: 'Sidebar with skill bars. Show competency levels clearly.',
                 PreviewComponent: DataModernPreview,
-                color: 'from-sky-500 to-blue-600',
+                color: 'from-sky-500 to-yellow-600',
                 sections: ['personalInfo', 'summary', 'skills', 'experience', 'projects', 'education']
             },
             {
@@ -1603,7 +1603,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Business Intelligence',
                 description: 'Traditional corporate format. Safe for any organization.',
                 PreviewComponent: DataClassicPreview,
-                color: 'from-sky-600 to-cyan-700',
+                color: 'from-sky-600 to-orange-700',
                 sections: ['personalInfo', 'summary', 'experience', 'skills', 'education', 'certifications']
             },
             {
@@ -1611,7 +1611,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Data Infographic',
                 description: 'Visual-heavy with metric highlights. Make numbers pop.',
                 PreviewComponent: DataInfographicPreview,
-                color: 'from-cyan-400 to-sky-500',
+                color: 'from-orange-400 to-sky-500',
                 sections: ['personalInfo', 'metrics', 'experience', 'skills', 'education', 'certifications']
             }
         ]
@@ -1633,7 +1633,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Manager Modern',
                 description: 'Two-column professional layout. Balance of style and substance.',
                 PreviewComponent: BusinessModernPreview,
-                color: 'from-purple-600 to-indigo-700',
+                color: 'from-yellow-600 to-amber-700',
                 sections: ['personalInfo', 'summary', 'experience', 'skills', 'education', 'certifications']
             },
             {
@@ -1649,7 +1649,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Business Minimal',
                 description: 'Clean focus on achievements. Less is more approach.',
                 PreviewComponent: BusinessMinimalPreview,
-                color: 'from-gray-600 to-purple-700',
+                color: 'from-gray-600 to-yellow-700',
                 sections: ['personalInfo', 'summary', 'experience', 'achievements', 'education']
             },
             {
@@ -1657,7 +1657,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Consultant Pro',
                 description: 'Highlight consulting experience. Built for client-facing roles.',
                 PreviewComponent: BusinessConsultantPreview,
-                color: 'from-purple-500 to-indigo-600',
+                color: 'from-yellow-500 to-amber-600',
                 sections: ['personalInfo', 'summary', 'engagements', 'skills', 'education', 'certifications']
             }
         ]
@@ -1733,7 +1733,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Creative Bold',
                 description: 'Dramatic dark theme with gradients. Make a statement.',
                 PreviewComponent: CreativeBoldPreview,
-                color: 'from-fuchsia-500 to-purple-600',
+                color: 'from-fuchsia-500 to-yellow-600',
                 sections: ['personalInfo', 'summary', 'portfolio', 'experience', 'skills', 'awards']
             },
             {
@@ -1855,7 +1855,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Medical Modern',
                 description: 'Clean sidebar design. Professional healthcare aesthetic.',
                 PreviewComponent: HealthcareModernPreview,
-                color: 'from-teal-500 to-cyan-600',
+                color: 'from-teal-500 to-orange-600',
                 sections: ['personalInfo', 'summary', 'experience', 'certifications', 'skills', 'education']
             },
             {
@@ -1901,7 +1901,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Academic Modern',
                 description: 'Contemporary CV format. Fresh take on academic tradition.',
                 PreviewComponent: AcademiaModernPreview,
-                color: 'from-indigo-600 to-purple-700',
+                color: 'from-amber-600 to-yellow-700',
                 sections: ['personalInfo', 'summary', 'positions', 'publications', 'education', 'grants']
             },
             {
@@ -1909,7 +1909,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Scholar Classic',
                 description: 'Traditional academic CV. Time-tested format for academia.',
                 PreviewComponent: AcademiaClassicPreview,
-                color: 'from-indigo-700 to-blue-800',
+                color: 'from-amber-700 to-yellow-800',
                 sections: ['personalInfo', 'positions', 'education', 'publications', 'conferences', 'grants']
             },
             {
@@ -1917,7 +1917,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Research Focus',
                 description: 'Publication-centric layout. Highlight your research output.',
                 PreviewComponent: AcademiaResearchPreview,
-                color: 'from-blue-600 to-indigo-700',
+                color: 'from-yellow-600 to-amber-700',
                 sections: ['personalInfo', 'research', 'publications', 'positions', 'education', 'grants']
             },
             {
@@ -1925,7 +1925,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'PhD Minimal',
                 description: 'Clean modern format for emerging academics.',
                 PreviewComponent: AcademiaMinimalPreview,
-                color: 'from-gray-600 to-indigo-700',
+                color: 'from-gray-600 to-amber-700',
                 sections: ['personalInfo', 'summary', 'education', 'publications', 'experience', 'skills']
             },
             {
@@ -1933,7 +1933,7 @@ export const CATEGORY_TEMPLATES = {
                 name: 'Publications CV',
                 description: 'Citation-focused layout. For prolific researchers.',
                 PreviewComponent: AcademiaPublicationsPreview,
-                color: 'from-indigo-500 to-violet-600',
+                color: 'from-amber-500 to-orange-600',
                 sections: ['personalInfo', 'publications', 'citations', 'positions', 'education', 'conferences']
             }
         ]

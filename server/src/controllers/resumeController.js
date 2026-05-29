@@ -1,5 +1,29 @@
 const supabase = require('../config/supabase');
 const { nanoid } = require('nanoid');
+const { extractText } = require('../services/extractionService');
+
+exports.uploadAndParseResume = async (req, res, next) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ success: false, error: 'No file uploaded' });
+        }
+
+        const buffer = req.file.buffer;
+        const mimetype = req.file.mimetype;
+
+        const extractedText = await extractText(buffer, mimetype);
+
+        res.status(200).json({
+            success: true,
+            data: {
+                extractedText,
+                filename: req.file.originalname
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 exports.createResume = async (req, res, next) => {
     try {
@@ -71,12 +95,14 @@ exports.getResume = async (req, res, next) => {
 
 exports.updateResume = async (req, res, next) => {
     try {
-        const { sections, title, status, formSchema } = req.body;
+        const { sections, title, status, formSchema, atsScore, atsFeedback } = req.body;
         const update = { updated_at: new Date().toISOString() };
         if (sections !== undefined) update.sections = sections;
-        if (title) update.title = title;
-        if (status) update.status = status;
-        if (formSchema) update.form_schema = formSchema;
+        if (title !== undefined) update.title = title;
+        if (status !== undefined) update.status = status;
+        if (formSchema !== undefined) update.form_schema = formSchema;
+        if (atsScore !== undefined) update.ats_score = atsScore;
+        if (atsFeedback !== undefined) update.ats_feedback = atsFeedback;
 
         const { data: resume, error } = await supabase
             .from('resumes')

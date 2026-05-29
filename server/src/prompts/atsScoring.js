@@ -1,61 +1,35 @@
 function buildATSPrompt(resumeData, targetRole) {
-    return `You are an ATS (Applicant Tracking System) expert and resume analyzer.
+    return `You are an expert ATS (Applicant Tracking System) parser and technical recruiter. Analyze the following resume data and return ONLY a raw JSON object containing the ATS analysis. Do not include markdown formatting like \`\`\`json.
 
 RESUME DATA:
 ${JSON.stringify(resumeData, null, 2)}
 
-TARGET ROLE: "${targetRole || 'General professional role'}"
+TARGET ROLE (if any): "${targetRole || 'General professional role'}"
 
-Analyze this resume against ATS best practices and score it 0-100.
+Analyze the resume on these 7 parameters out of 100 based on the following weightages:
+1. Keyword Match (30%) - alignment with standard job descriptions for the target role
+2. Skills Section (15%) - presence and quality of technical and soft skills
+3. Formatting (15%) - readability of the provided structure and cleanliness
+4. Experience (15%) - impactful vocabulary and action verbs in work history
+5. Education (10%) - relevance and presentation of education details
+6. Readability (10%) - grammar, sentence structure, and clarity
+7. Projects & Certifications (5%) - presence of relevant projects or external validations
 
-Evaluate these categories:
-1. **Formatting** (0-100): Clear headers, consistent structure, no complex formatting
-2. **Keywords** (0-100): Relevant industry/role keywords present
-3. **Experience** (0-100): Action verbs, quantified results, relevance
-4. **Skills** (0-100): Technical and soft skills alignment with target role
-5. **Education** (0-100): Relevant education, certifications, coursework
-6. **Completeness** (0-100): All essential sections present and filled
+Calculate a weighted "total" score out of 100 based on the percentages above.
 
-Return ONLY valid JSON (no markdown, no code fences):
+Return exact JSON format:
 {
-  "score": 78,
-  "grade": "B+",
-  "breakdown": {
-    "formatting": {
-      "score": 90,
-      "feedback": "Specific feedback about formatting"
-    },
-    "keywords": {
-      "score": 65,
-      "feedback": "Specific feedback about keywords",
-      "missing": ["keyword1", "keyword2"]
-    },
-    "experience": {
-      "score": 80,
-      "feedback": "Specific feedback about experience bullets"
-    },
-    "skills": {
-      "score": 75,
-      "feedback": "Specific feedback about skills"
-    },
-    "education": {
-      "score": 85,
-      "feedback": "Specific feedback about education"
-    },
-    "completeness": {
-      "score": 70,
-      "feedback": "Specific feedback about completeness"
-    }
-  },
-  "topSuggestions": [
-    "Actionable suggestion 1",
-    "Actionable suggestion 2",
-    "Actionable suggestion 3",
-    "Actionable suggestion 4",
-    "Actionable suggestion 5"
+  "total": 85,
+  "parameters": [
+    {"name": "Keyword Match", "score": 80, "desc": "Good keywords but missing some specific technologies."},
+    {"name": "Skills Section", "score": 75, "desc": "Skills are listed but could be categorized better."},
+    {"name": "Formatting", "score": 90, "desc": "Clean and easily machine-readable data structure."},
+    {"name": "Experience", "score": 85, "desc": "Strong action verbs used, good quantifiable metrics."},
+    {"name": "Education", "score": 100, "desc": "Education details are clear and complete."},
+    {"name": "Readability", "score": 88, "desc": "Good grammar and sentence flow, easy to parse."},
+    {"name": "Projects/Certifications", "score": 70, "desc": "Some projects listed, but lacking clear tech stacks."}
   ],
-  "missingKeywords": ["relevant", "missing", "keywords"],
-  "strengths": ["Specific strength 1", "Specific strength 2"]
+  "review": "Write a 2-3 sentence professional review here, summarizing the overall ATS viability based on the actual data."
 }`;
 }
 

@@ -141,7 +141,7 @@ export default function TemplateManager() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center py-32 gap-4">
-                <div className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-amber-100 border-t-amber-600 rounded-full animate-spin" />
                 <p className="text-[15px] font-semibold text-slate-500">Loading your template library...</p>
             </div>
         );
@@ -157,7 +157,7 @@ export default function TemplateManager() {
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="relative group">
-                        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-indigo-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-amber-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                         <input 
@@ -165,7 +165,7 @@ export default function TemplateManager() {
                             placeholder="Search templates..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all w-full md:w-64"
+                            className="pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 transition-all w-full md:w-64"
                         />
                     </div>
                 </div>
@@ -175,7 +175,7 @@ export default function TemplateManager() {
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
                     <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                         Categories
                     </h3>
                     <button 
@@ -183,7 +183,7 @@ export default function TemplateManager() {
                             setFormData({ ...initialFormState });
                             setIsAdding(true);
                         }}
-                        className="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 transition-colors"
+                        className="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1 transition-colors"
                     >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -195,9 +195,9 @@ export default function TemplateManager() {
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                     <button
                         onClick={() => setActiveCategory('all')}
-                        className={`group p-5 rounded-[2.5rem] border-2 transition-all relative overflow-hidden text-left ${activeCategory === 'all' ? 'bg-slate-900 border-slate-900 text-white shadow-2xl scale-105 z-10' : 'bg-white border-slate-100 text-slate-900 hover:border-indigo-300 hover:-translate-y-1'}`}
+                        className={`group p-5 rounded-[2.5rem] border-2 transition-all relative overflow-hidden text-left ${activeCategory === 'all' ? 'bg-slate-900 border-slate-900 text-white shadow-2xl scale-105 z-10' : 'bg-white border-slate-100 text-slate-900 hover:border-amber-300 hover:-translate-y-1'}`}
                     >
-                        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-4 transition-colors ${activeCategory === 'all' ? 'bg-white/10' : 'bg-slate-50 group-hover:bg-indigo-50 text-slate-400 group-hover:text-indigo-600'}`}>
+                        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-4 transition-colors ${activeCategory === 'all' ? 'bg-white/10' : 'bg-slate-50 group-hover:bg-amber-50 text-slate-400 group-hover:text-amber-600'}`}>
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h7" />
                             </svg>
@@ -210,9 +210,9 @@ export default function TemplateManager() {
                         <button
                             key={id}
                             onClick={() => setActiveCategory(id)}
-                            className={`group p-5 rounded-[2.5rem] border-2 transition-all relative overflow-hidden text-left ${activeCategory === id ? 'bg-indigo-600 border-indigo-600 text-white shadow-2xl scale-105 z-10' : 'bg-white border-slate-100 text-slate-900 hover:border-indigo-300 hover:-translate-y-1'}`}
+                            className={`group p-5 rounded-[2.5rem] border-2 transition-all relative overflow-hidden text-left ${activeCategory === id ? 'bg-amber-600 border-amber-600 text-white shadow-2xl scale-105 z-10' : 'bg-white border-slate-100 text-slate-900 hover:border-amber-300 hover:-translate-y-1'}`}
                         >
-                            <div className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-4 transition-colors ${activeCategory === id ? 'bg-white/10' : 'bg-slate-50 group-hover:bg-indigo-50 text-slate-400 group-hover:text-indigo-600'}`}>
+                            <div className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-4 transition-colors ${activeCategory === id ? 'bg-white/10' : 'bg-slate-50 group-hover:bg-amber-50 text-slate-400 group-hover:text-amber-600'}`}>
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                 </svg>
@@ -233,9 +233,9 @@ export default function TemplateManager() {
                             const newCat = prompt('Enter new category name:');
                             if (newCat) setActiveCategory(newCat);
                         }}
-                        className="p-5 rounded-[2.5rem] border-2 border-dashed border-slate-200 text-slate-400 hover:border-indigo-400 hover:text-indigo-600 transition-all flex flex-col items-center justify-center gap-2 group"
+                        className="p-5 rounded-[2.5rem] border-2 border-dashed border-slate-200 text-slate-400 hover:border-amber-400 hover:text-amber-600 transition-all flex flex-col items-center justify-center gap-2 group"
                     >
-                        <div className="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-indigo-50 transition-colors">
+                        <div className="w-10 h-10 rounded-2xl bg-slate-50 flex items-center justify-center group-hover:bg-amber-50 transition-colors">
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
                             </svg>
@@ -275,7 +275,7 @@ export default function TemplateManager() {
                 {filteredTemplates.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredTemplates.map(template => (
-                            <div key={template._id || template.id} className="group bg-white rounded-[2rem] border border-slate-200 hover:border-indigo-400 transition-all hover:shadow-2xl overflow-hidden flex flex-col relative shadow-sm">
+                            <div key={template._id || template.id} className="group bg-white rounded-[2rem] border border-slate-200 hover:border-amber-400 transition-all hover:shadow-2xl overflow-hidden flex flex-col relative shadow-sm">
                                 {/* Badges */}
                                 <div className="absolute top-5 right-5 z-20 flex gap-2">
                                     {template.isPremium && (
@@ -287,8 +287,8 @@ export default function TemplateManager() {
                                 </div>
 
                                 {/* Image Preview Wrapper */}
-                                <div className="h-56 bg-gradient-to-br from-slate-50 to-indigo-50/30 p-6 relative overflow-hidden flex items-center justify-center">
-                                    <div className="absolute inset-0 bg-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                                <div className="h-56 bg-gradient-to-br from-slate-50 to-amber-50/30 p-6 relative overflow-hidden flex items-center justify-center">
+                                    <div className="absolute inset-0 bg-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                                     {template.previewImage ? (
                                         <img src={template.previewImage} alt={template.name} className="h-full w-auto object-contain rounded-xl drop-shadow-[0_20px_35px_rgba(0,0,0,0.12)] group-hover:scale-110 transition-transform duration-700 ease-out" />
                                     ) : (
@@ -307,8 +307,8 @@ export default function TemplateManager() {
                                 <div className="p-6 flex-1 flex flex-col bg-white">
                                     <div className="flex items-start justify-between gap-4 mb-2">
                                         <div>
-                                            <p className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-1">{template.category || 'Structural'}</p>
-                                            <h4 className="text-xl font-black text-slate-900 group-hover:text-indigo-600 transition-colors leading-tight">{template.name}</h4>
+                                            <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-1">{template.category || 'Structural'}</p>
+                                            <h4 className="text-xl font-black text-slate-900 group-hover:text-amber-600 transition-colors leading-tight">{template.name}</h4>
                                         </div>
                                     </div>
                                     
@@ -336,8 +336,8 @@ export default function TemplateManager() {
                     </div>
                 ) : (
                     <div className="bg-white rounded-[2.5rem] border border-slate-200 p-20 text-center border-dashed">
-                        <div className="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-8 border border-white shadow-xl shadow-indigo-100/50">
-                            <svg className="w-10 h-10 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div className="w-24 h-24 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-8 border border-white shadow-xl shadow-amber-100/50">
+                            <svg className="w-10 h-10 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
@@ -349,7 +349,7 @@ export default function TemplateManager() {
                                 setFormData({ ...initialFormState, category: activeCategory === 'all' ? '' : activeCategory });
                                 setIsAdding(true);
                             }}
-                            className="inline-flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 rounded-2xl text-white text-sm font-black uppercase tracking-widest shadow-2xl shadow-indigo-300 transition-all hover:scale-105 active:scale-95"
+                            className="inline-flex items-center gap-3 px-8 py-4 bg-amber-600 hover:bg-amber-700 rounded-2xl text-white text-sm font-black uppercase tracking-widest shadow-2xl shadow-amber-300 transition-all hover:scale-105 active:scale-95"
                         >
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
@@ -371,7 +371,7 @@ export default function TemplateManager() {
                         <div className="px-10 py-8 border-b border-slate-100 bg-white sticky top-0 z-10">
                             <div className="flex items-center justify-between gap-6">
                                 <div>
-                                    <p className="text-[10px] font-black text-indigo-500 uppercase tracking-[0.2em] mb-1">Architecture Node</p>
+                                    <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-1">Architecture Node</p>
                                     <h2 className="text-3xl font-black text-slate-900 leading-tight">
                                         {editingTemplate ? `Modify ${editingTemplate.name}` : 'Spawn New Layout'}
                                     </h2>
@@ -380,14 +380,14 @@ export default function TemplateManager() {
                                     <button
                                         type="button"
                                         onClick={() => setEditorTab('basic')}
-                                        className={`px-5 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all ${editorTab === 'basic' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                                        className={`px-5 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all ${editorTab === 'basic' ? 'bg-white text-amber-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
                                     >
                                         Basic Settings
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => setEditorTab('structure')}
-                                        className={`px-5 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all ${editorTab === 'structure' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                                        className={`px-5 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-wider transition-all ${editorTab === 'structure' ? 'bg-white text-amber-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
                                     >
                                         JSON Schema
                                     </button>
@@ -406,7 +406,7 @@ export default function TemplateManager() {
                                                 <input
                                                     required
                                                     type="text"
-                                                    className="w-full bg-slate-50 border-2 border-slate-50 p-5 rounded-[1.5rem] text-slate-900 font-bold placeholder-slate-300 focus:outline-none focus:bg-white focus:border-indigo-500/30 transition-all shadow-inner"
+                                                    className="w-full bg-slate-50 border-2 border-slate-50 p-5 rounded-[1.5rem] text-slate-900 font-bold placeholder-slate-300 focus:outline-none focus:bg-white focus:border-amber-500/30 transition-all shadow-inner"
                                                     placeholder="e.g. Minimalist Tech"
                                                     value={formData.name}
                                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -418,7 +418,7 @@ export default function TemplateManager() {
                                                 <input
                                                     required
                                                     type="text"
-                                                    className="w-full bg-slate-50 border-2 border-slate-50 p-5 rounded-[1.5rem] text-slate-900 font-bold placeholder-slate-300 focus:outline-none focus:bg-white focus:border-indigo-500/30 transition-all shadow-inner"
+                                                    className="w-full bg-slate-50 border-2 border-slate-50 p-5 rounded-[1.5rem] text-slate-900 font-bold placeholder-slate-300 focus:outline-none focus:bg-white focus:border-amber-500/30 transition-all shadow-inner"
                                                     placeholder="e.g. Engineering"
                                                     value={formData.category}
                                                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -428,7 +428,7 @@ export default function TemplateManager() {
 
                                         <div className="space-y-4">
                                             <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest block px-1">Visual Preview Asset</label>
-                                            <div className="flex justify-center p-12 border-2 border-slate-200 border-dashed rounded-[2.5rem] hover:border-indigo-500 transition-all bg-slate-50 group/upload relative min-h-[260px]">
+                                            <div className="flex justify-center p-12 border-2 border-slate-200 border-dashed rounded-[2.5rem] hover:border-amber-500 transition-all bg-slate-50 group/upload relative min-h-[260px]">
                                                 <div className="space-y-5 text-center w-full flex flex-col items-center justify-center">
                                                     {formData.previewImage ? (
                                                         <div className="relative group/img max-w-sm rounded-[2rem] overflow-hidden shadow-2xl transition-all hover:scale-[1.02]">
@@ -448,13 +448,13 @@ export default function TemplateManager() {
                                                         </div>
                                                     ) : (
                                                         <>
-                                                            <div className="w-20 h-20 rounded-[2rem] bg-white shadow-xl flex items-center justify-center mb-3 group-hover/upload:scale-110 group-hover/upload:rotate-3 transition-all duration-500 text-indigo-500">
+                                                            <div className="w-20 h-20 rounded-[2rem] bg-white shadow-xl flex items-center justify-center mb-3 group-hover/upload:scale-110 group-hover/upload:rotate-3 transition-all duration-500 text-amber-500">
                                                                 <svg className="h-10 w-10" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                                                     <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                                                                 </svg>
                                                             </div>
                                                             <div className="flex text-base text-slate-600 justify-center">
-                                                                <label htmlFor="file-upload" className="relative cursor-pointer font-black text-indigo-600 hover:text-indigo-500 transition-colors">
+                                                                <label htmlFor="file-upload" className="relative cursor-pointer font-black text-amber-600 hover:text-amber-500 transition-colors">
                                                                     <span>Select High-Res Asset</span>
                                                                     <input id="file-upload" name="file-upload" type="file" className="sr-only" accept="image/*" onChange={(e) => {
                                                                         const file = e.target.files[0];
@@ -479,7 +479,7 @@ export default function TemplateManager() {
                                             <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest block px-1">Meta Descriptors (Tags)</label>
                                             <input
                                                 type="text"
-                                                className="w-full bg-slate-50 border-2 border-slate-50 p-5 rounded-[1.5rem] text-slate-900 font-bold placeholder-slate-300 focus:outline-none focus:bg-white focus:border-indigo-500/30 transition-all shadow-inner"
+                                                className="w-full bg-slate-50 border-2 border-slate-50 p-5 rounded-[1.5rem] text-slate-900 font-bold placeholder-slate-300 focus:outline-none focus:bg-white focus:border-amber-500/30 transition-all shadow-inner"
                                                 placeholder="e.g. minimalist, bold, sdr (comma separated)"
                                                 value={formData.tags}
                                                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
@@ -489,7 +489,7 @@ export default function TemplateManager() {
                                         <div className="space-y-4">
                                             <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest block px-1">Marketing Description</label>
                                             <textarea
-                                                className="w-full bg-slate-50 border-2 border-slate-50 p-5 rounded-[1.5rem] text-slate-900 font-bold placeholder-slate-300 focus:outline-none focus:bg-white focus:border-indigo-500/30 transition-all shadow-inner min-h-[160px] resize-none"
+                                                className="w-full bg-slate-50 border-2 border-slate-50 p-5 rounded-[1.5rem] text-slate-900 font-bold placeholder-slate-300 focus:outline-none focus:bg-white focus:border-amber-500/30 transition-all shadow-inner min-h-[160px] resize-none"
                                                 placeholder="Sell this template to users..."
                                                 value={formData.description}
                                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -541,7 +541,7 @@ export default function TemplateManager() {
                                             )}
                                         </div>
                                         <textarea
-                                            className={`w-full flex-1 bg-[#0f172a] text-emerald-400 p-8 rounded-[2rem] font-mono text-sm focus:outline-none focus:ring-4 focus:ring-indigo-500/20 transition-all shadow-2xl resize-none border-2 ${jsonError ? 'border-rose-500/50' : 'border-slate-800'}`}
+                                            className={`w-full flex-1 bg-[#0f172a] text-emerald-400 p-8 rounded-[2rem] font-mono text-sm focus:outline-none focus:ring-4 focus:ring-amber-500/20 transition-all shadow-2xl resize-none border-2 ${jsonError ? 'border-rose-500/50' : 'border-slate-800'}`}
                                             placeholder="Layout structure JSON..."
                                             value={JSON.stringify(formData.sections, null, 4)}
                                             rows={25}
@@ -583,7 +583,7 @@ export default function TemplateManager() {
                             <button
                                 form="templateForm"
                                 type="submit"
-                                className="px-12 py-4 rounded-2xl text-[12px] font-black uppercase tracking-[0.2em] text-white bg-indigo-600 shadow-2xl shadow-indigo-200 hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-300"
+                                className="px-12 py-4 rounded-2xl text-[12px] font-black uppercase tracking-[0.2em] text-white bg-amber-600 shadow-2xl shadow-amber-200 hover:bg-amber-700 hover:-translate-y-1 transition-all duration-300"
                             >
                                 {editingTemplate ? 'Commit Changes' : 'Execute Deploy'}
                             </button>

@@ -46,7 +46,7 @@ export default function UserManager() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center py-32 gap-4">
-                <div className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-amber-100 border-t-amber-600 rounded-full animate-spin" />
                 <p className="text-[15px] font-semibold text-slate-500">Loading users...</p>
             </div>
         );
@@ -67,7 +67,7 @@ export default function UserManager() {
                     <input
                         type="text"
                         placeholder="Search users..."
-                        className="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all w-full sm:w-64"
+                        className="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all w-full sm:w-64"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -113,7 +113,7 @@ export default function UserManager() {
                                             }}
                                             disabled={savingUserId === user._id}
                                         />
-                                        <div className={`w-11 h-6 rounded-full transition-colors ${user.isAdmin ? 'bg-indigo-600' : 'bg-slate-200'} ${savingUserId === user._id ? 'opacity-60' : ''}`}></div>
+                                        <div className={`w-11 h-6 rounded-full transition-colors ${user.isAdmin ? 'bg-amber-600' : 'bg-slate-200'} ${savingUserId === user._id ? 'opacity-60' : ''}`}></div>
                                         <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform shadow-sm ${user.isAdmin ? 'transform translate-x-5' : ''}`}></div>
                                     </label>
                                 </td>
@@ -126,7 +126,7 @@ export default function UserManager() {
                                             saveUser(user._id, { plan });
                                         }}
                                         disabled={savingUserId === user._id}
-                                        className="text-sm font-bold bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all disabled:opacity-60"
+                                        className="text-sm font-bold bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all disabled:opacity-60"
                                     >
                                         <option value="free">Free</option>
                                         <option value="pro">Pro</option>
@@ -146,7 +146,7 @@ export default function UserManager() {
                                             if (Number.isFinite(aiCredits)) saveUser(user._id, { aiCredits });
                                         }}
                                         disabled={savingUserId === user._id}
-                                        className="w-24 text-sm font-bold bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all disabled:opacity-60"
+                                        className="w-24 text-sm font-bold bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all disabled:opacity-60"
                                     />
                                 </td>
                                 <td className="px-6 py-3.5 text-sm font-semibold text-slate-600">
@@ -160,7 +160,7 @@ export default function UserManager() {
                                     <button
                                         onClick={() => saveUser(user._id, { plan: user.plan, isAdmin: user.isAdmin, aiCredits: user.aiCredits })}
                                         disabled={savingUserId === user._id}
-                                        className="text-slate-600 hover:text-indigo-600 transition-colors bg-slate-50 hover:bg-indigo-50 px-3 py-2 rounded-lg border border-slate-200 text-xs font-black uppercase tracking-wider disabled:opacity-60"
+                                        className="text-slate-600 hover:text-amber-600 transition-colors bg-slate-50 hover:bg-amber-50 px-3 py-2 rounded-lg border border-slate-200 text-xs font-black uppercase tracking-wider disabled:opacity-60"
                                     >
                                         {savingUserId === user._id ? 'Saving…' : 'Save'}
                                     </button>

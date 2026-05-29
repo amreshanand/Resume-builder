@@ -23,7 +23,7 @@ export default function ResumeManager() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center py-32 gap-4">
-                <div className="w-10 h-10 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin" />
+                <div className="w-10 h-10 border-4 border-amber-100 border-t-amber-600 rounded-full animate-spin" />
                 <p className="text-[15px] font-semibold text-slate-500">Loading resumes...</p>
             </div>
         );
@@ -54,7 +54,7 @@ export default function ResumeManager() {
                             <tr key={resume._id} className="hover:bg-slate-50/50 transition-colors">
                                 <td className="px-6 py-3.5">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-9 h-11 bg-indigo-50 rounded-md border border-indigo-100 flex items-center justify-center text-indigo-500">
+                                        <div className="w-9 h-11 bg-amber-50 rounded-md border border-amber-100 flex items-center justify-center text-amber-500">
                                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                             </svg>
@@ -76,10 +76,10 @@ export default function ResumeManager() {
                                 <td className="px-6 py-3.5">
                                     <div className="flex items-center gap-2">
                                         <span className="px-2 py-1 bg-slate-50 border border-slate-200 rounded text-xs font-bold text-slate-600" title="Experience">
-                                            Exp: {resume.content?.experience?.length || 0}
+                                            Exp: {resume.sections?.experience?.length || 0}
                                         </span>
                                         <span className="px-2 py-1 bg-slate-50 border border-slate-200 rounded text-xs font-bold text-slate-600" title="Education">
-                                            Edu: {resume.content?.education?.length || 0}
+                                            Edu: {resume.sections?.education?.length || 0}
                                         </span>
                                     </div>
                                 </td>
@@ -96,7 +96,7 @@ export default function ResumeManager() {
                                             href={`/dashboard/preview/${resume._id}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="px-3 py-1.5 text-xs font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 hover:bg-indigo-100 rounded-md transition-colors"
+                                            className="px-3 py-1.5 text-xs font-bold text-amber-600 bg-amber-50 border border-amber-100 hover:bg-amber-100 rounded-md transition-colors"
                                         >
                                             View PDF
                                         </a>
